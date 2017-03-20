@@ -12,11 +12,11 @@ module.exports = class extends Generator {
 
     initializing() {
         this.log(`\n` +
-            chalk.yellow(`=================================================================\n`) +
-            chalk.gray(leftpad(`Welcome to`, 33)) + chalk.bold.blue(` gohttp`) + `!\n` +
-            chalk.gray(`This Yeoman generator aims to scaffold a robust http web service.\n`) +
-            chalk.white(leftpad(`Let\'s get started!`, 41)) +
-            chalk.yellow(`\n=================================================================`)
+            chalk.yellow(`=====================================================================\n`) +
+            chalk.gray(leftpad(`Welcome to`, 35)) + chalk.bold.blue(` gomicro`) + `!\n` +
+            chalk.gray(`This Yeoman generator aims to scaffold a robust RESTful microservice.\n`) +
+            chalk.white(leftpad(`Let\'s get started!`, 43)) +
+            chalk.yellow(`\n=====================================================================`)
         )
 
         // if(!process.env.GOPATH || !fs.lstatSync(process.env.GOPATH).isDirectory()) {
@@ -32,7 +32,7 @@ module.exports = class extends Generator {
     }
 
     prompting() {
-        this.log(chalk.blue(`\n=================================================================\n`) + chalk.gray(leftpad('Go workspaces like to be created a certain way', 55)) + '\n' + chalk.gray(leftpad(`(e.g. `, 15)) + chalk.green(`$GOPATH/src/github.com/frankgreco/gohttp`) + chalk.gray(`)`) + '\n' + chalk.gray(leftpad('To do this, let\'s get some information about your project', 61)) + chalk.blue(`\n=================================================================\n`));
+        this.log(chalk.blue(`\n=====================================================================\n`) + chalk.gray(leftpad('Go workspaces like to be created a certain way', 57)) + '\n' + chalk.gray(leftpad(`(e.g. `, 17)) + chalk.green(`$GOPATH/src/github.com/frankgreco/gohttp`) + chalk.gray(`)`) + '\n' + chalk.gray(leftpad('To do this, let\'s get some information about your project', 63)) + chalk.blue(`\n=====================================================================\n`));
         return this.prompt([{
             type    : 'input',
             name    : 'name',
@@ -91,24 +91,14 @@ module.exports = class extends Generator {
         });
     }
 
-    end() {
-        var answers = this.config.get("promptValues")
-        this.log(`\n` +
-            chalk.magenta(`=================================================================\n`) +
-            chalk.gray(leftpad(`You\'re all set! Find your project here:`, 51)) + `\n` +
-            chalk.white.bold(leftpad(`$GOPATH/${answers.repo}/${answers.user}/${answers.project}/`, 50)) +
-            chalk.magenta(`\n=================================================================`)
-        )
-    }
-
     writing() {
 
         var self = this;
 
         this.log(`\n` +
-            chalk.green(`=================================================================\n`) +
+            chalk.green(`=====================================================================\n`) +
             chalk.gray(leftpad(`Creating your workspace...`, 45)) +
-            chalk.green(`\n=================================================================\n`)
+            chalk.green(`\n=====================================================================\n`)
         )
 
         var cap = function capitalizeFirstLetter(string) {
@@ -186,15 +176,18 @@ module.exports = class extends Generator {
 
     }
 
-    // install() {
-    //     this.log(`\n` +
-    //         chalk.green(`=================================================================\n`) +
-    //         chalk.gray(leftpad(`Installing dependencies...`, 45)) +
-    //         chalk.green(`\n=================================================================`)
-    //     )
-    //     this.spawnCommand('glide', ['update']);
-    //     this.spawnCommand('glide', ['install']);
-    //     this.spawnCommand('go', ['build']);
-    // }
+    end() {
+        var answers = this.config.get("promptValues")
+        this.log(`\n` +
+            chalk.magenta(`=====================================================================\n`) +
+            chalk.gray(leftpad(`You\'re almost done! Your workspace has been created here:`, 63)) + `\n` +
+            chalk.white.bold(leftpad(`$GOPATH/${answers.vcs}/${answers.user}/${answers.project}/`, 52)) + `\n` +
+            chalk.gray(leftpad(`To complete your setup, run the following commands in your workspace:`, 55)) + `\n` +
+            chalk.white(leftpad('$ ', 17)) + chalk.cyan(`make `) + chalk.gray(leftpad(`(use your own database)`, 35)) + `\n` +
+            chalk.white(leftpad('$ ', 17)) + chalk.cyan(`make local-dev `) + chalk.gray(leftpad(`(or, create a local database)`, 31)) + `\n` +
+            chalk.white(leftpad('$ ', 17)) + chalk.cyan(`./${answers.project} --help`) + chalk.gray(leftpad(`(example usage)`, 17)) +
+            chalk.magenta(`\n=====================================================================`)
+        )
+    }
 
 };

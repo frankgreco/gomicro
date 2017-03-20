@@ -44,3 +44,77 @@ This project aims to use the best and most widely used libraries. Here are the m
 **command line interface**: [spf13/cobra](https://github.com/spf13/cobra)  
 **http router**: [gorilla/mux](https://github.com/gorilla/mux)  
 **logging**: [sirupsen/logrus](https://github.com/sirupsen/logrus)  
+
+## usage
+So you know what to expect, here is a sample cli interaction:
+
+```sh
+$ yo gomicro
+
+=====================================================================
+                         Welcome to gomicro!
+This Yeoman generator aims to scaffold a robust RESTful microservice.
+                         Let's get started!
+=====================================================================
+
+=====================================================================
+           Go workspaces like to be created a certain way
+           (e.g. $GOPATH/src/github.com/frankgreco/gohttp)
+      To do this, let's get some information about your project
+=====================================================================
+
+? your name Frank B Greco Jr
+? your email frank@petrasphere.io
+? vcs github.com
+? github.com username frankgreco
+? project name gorest
+? resource noun (singular) person
+? resource noun (plural) people
+? database type mysql
+
+=====================================================================
+                   Creating your workspace...
+=====================================================================
+
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/Makefile
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/table.sql
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/Dockerfile
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/glide.yaml
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/swagger.json
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/docker-compose.yaml
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/.gitignore
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/main.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/route/logger.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/route/router.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/route/routes.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/cmd/root.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/cmd/start.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/cmd/version.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/database/mysql.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/utils/error.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/utils/flag.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/server/server.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/handler.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/util.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/database/driver.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/person.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/people.go
+create Documents/projects/gopath/src/github.com/frankgreco/gorest/models/person.go
+
+=====================================================================
+   You're almost done! Your workspace has been created here:
+            $GOPATH/github.com/frankgreco/gorest/
+To complete your setup, run the following commands in your workspace:
+            $ make             (use your own database)
+            $ make local-dev   (or, create a local database)
+            $ ./gorest --help  (example usage)
+=====================================================================
+
+$ make local-dev
+$ ./gomicro start --app-port=8080 --db-port=3306 --db-host=localhost --db-name=calls --db-user=root --db-pass=password
+$ curl -X POST -H "Content-Type: application/json" -d '{
+    "paramOne": "foo",
+    "paramTwo": "bar"
+}' "http://localhost:8080/people"
+
+```
