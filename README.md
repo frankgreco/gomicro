@@ -58,6 +58,10 @@ $ yo gomicro
 =====================================================================
                          Welcome to gomicro!
 This Yeoman generator aims to scaffold a robust RESTful microservice.
+
+             [WARNING] go not installed or not in PATH
+             [WARNING] glide not installed or not in PATH
+
                          Let's get started!
 =====================================================================
 
