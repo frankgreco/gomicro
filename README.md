@@ -37,3 +37,10 @@ Whether you're a beginner with go or not, valuable time is spent setting up a ne
 $ npm install -g generator-gomicro
 $ yo gomicro
 ```
+
+## go libraries
+This project aims to use the best and most widely used libraries. Here are the main libraries that gomicro uses:
+
+**command line interface**: [spf13/cobra](https://github.com/spf13/cobra)  
+**http router**: [gorilla/mux](https://github.com/gorilla/mux)  
+**logging**: [sirupsen/logrus](https://github.com/sirupsen/logrus)  
