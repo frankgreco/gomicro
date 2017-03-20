@@ -54,13 +54,13 @@ $ yo gomicro
 =====================================================================
                          Welcome to gomicro!
 This Yeoman generator aims to scaffold a robust RESTful microservice.
-                         Let\'s get started!
+                         Let's get started!
 =====================================================================
 
 =====================================================================
            Go workspaces like to be created a certain way
            (e.g. $GOPATH/src/github.com/frankgreco/gohttp)
-      To do this, let\'s get some information about your project
+      To do this, let's get some information about your project
 =====================================================================
 
 ? your name Frank B Greco Jr
@@ -102,7 +102,7 @@ create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/people
 create Documents/projects/gopath/src/github.com/frankgreco/gorest/models/person.go
 
 =====================================================================
-   You\'re almost done! Your workspace has been created here:
+   You're almost done! Your workspace has been created here:
             $GOPATH/github.com/frankgreco/gorest/
 To complete your setup, run the following commands in your workspace:
             $ make             (use your own database)
@@ -113,9 +113,9 @@ To complete your setup, run the following commands in your workspace:
 $ cd $GOPATH/github.com/frankgreco/gorest/
 $ make local-dev
 $ ./gomicro start --app-port=8080 --db-port=3306 --db-host=localhost --db-name=calls --db-user=root --db-pass=password
-$ curl -X POST -H \"Content-Type: application/json\" -d \'{
-    \"paramOne\": \"foo\",
-    \"paramTwo\": \"bar\"
-}\' \"http://localhost:8080/people\"
+$ curl -X POST -H "Content-Type: application/json" -d '{
+    "paramOne": "foo",
+    "paramTwo": "bar"
+}' "http://localhost:8080/people"
 
 ```
