@@ -60,7 +60,7 @@ This Yeoman generator aims to scaffold a robust RESTful microservice.
 
 =====================================================================
            Go workspaces like to be created a certain way
-           (e.g. $GOPATH/src/github.com/frankgreco/gohttp)
+           (e.g. $GOPATH/src/github.com/frankgreco/gomicro)
       To do this, let's get some information about your project
 =====================================================================
 
@@ -68,7 +68,7 @@ This Yeoman generator aims to scaffold a robust RESTful microservice.
 ? your email frank@petrasphere.io
 ? vcs github.com
 ? github.com username frankgreco
-? project name <%= nounSingularLower %>
+? project name gomicro
 ? resource noun (singular) person
 ? resource noun (plural) people
 ? database type mysql
@@ -108,7 +108,7 @@ create Documents/projects/gopath/src/github.com/frankgreco/gomicro/models/person
 To complete your setup, run the following commands in your workspace:
             $ make             (use your own database)
             $ make local-dev   (or, create a local database)
-            $ ./gomicro --help  (example usage)
+            $ ./gomicro --help (example usage)
 =====================================================================
 
 $ cd $GOPATH/github.com/frankgreco/gomicro/
