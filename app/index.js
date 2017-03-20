@@ -144,7 +144,7 @@ module.exports = class extends Generator {
             "cmd/root.go",
             "cmd/start.go",
             "cmd/version.go",
-            "database/driver.go",
+            "database/mysql.go",
             "utils/error.go",
             "utils/flag.go",
             "server/server.go",
@@ -159,6 +159,12 @@ module.exports = class extends Generator {
                 params
             );
         });
+
+        this.fs.copyTpl(
+            this.templatePath('database/mysql.go'),
+            this.destinationPath(`${basePath}/database/driver.go`),
+            params
+        );
 
         this.fs.copyTpl(
             this.templatePath('handler/singular.go'),
