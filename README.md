@@ -1,9 +1,23 @@
 > a yeoman generator for golang rest microservices
 
+__*NOTE*__: this project is under active development. Here is the current backlog:
+- [x] mySQL db driver
+- [x] robust logging
+- [x] Docker configuration
+- [ ] linting
+- [x] build scripts
+- [ ] mongodb db driver
+- [x] cli tools
+- [ ] unit testing
+- [ ] coverage metrics with Coveralls
+- [ ] build metrics with TravisCI
+- [ ] support for multiple go package managers
+
 ## why gomicro
 Whether you're a beginner with go or not, valuable time is spent setting up a new workspace. Here are some of the reasons to use gomicro to setup yours:
 
-* **more than boilerplate**: most of the time, the majority of code when writing multiple RESTful microservices is the same. Things such as CORS, auth, logging, cli, testing, database drivers, error handling, etc. remain the same while the only thing changing is the data model. gomicro aims to take advantage of this by providing a standardized project utilizing the most widely used libraries so that all you have to worry about is the data model.   
+* **more than boilerplate**: most of the time, the majority of code when writing multiple RESTful microservices is the same. Things such as CORS, auth, logging, cli, testing, database drivers, error handling, etc. remain the same while the only thing changing is the data model. gomicro aims to take advantage of this by providing a standardized project utilizing the most widely used libraries so that all you have to worry about is the data model.  
+* **documentation**: use the dynamically generated Swagger API documentation to professionally document your RESTful API   
 * **unit testing**: gomicro provides robust unit testing for all your code   
 * **containerized**: use the provided Dockerfile to containerize your application. Also, use the provided configuration to quickly spin up a lightweight database of your choice using Docker to enhance local development.   
 * **command line interface**: use a cli to dynamically configure your application at runtime  
@@ -22,5 +36,3 @@ Whether you're a beginner with go or not, valuable time is spent setting up a ne
 $ npm install -g generator-gomicro
 $ yo gomicro
 ```
-
-## usage
