@@ -1,0 +1,5 @@
+package: <%= vcs %>/<%= repo %>/<%= project %>
+import:
+- package: github.com/Sirupsen/logrus
+- package: github.com/gorilla/mux
+- package: github.com/spf13/cobra

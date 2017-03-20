@@ -1,0 +1,20 @@
+---
+
+version: "3"
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql
+    command: mysqld --init-file=/schema/table.sql
+    environment:
+    - MYSQL_ROOT_PASSWORD=password
+    volumes:
+    - "./table.sql:/schema/table.sql"
+    ports:
+    - "3306:3306"
+    networks:
+    - default
+
+networks:
+  default:

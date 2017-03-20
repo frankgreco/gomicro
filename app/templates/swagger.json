@@ -1,0 +1,330 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "contact": {
+      "name": "<%= name %>",
+      "email": "<%= email %>"
+    },
+    "title": "<%= nounSingularUpper %> Service",
+    "description": "Fascilitates create/retrieve/update/delete (CRUD) operations on <%= nounSingularUpper %> resources"
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "<%= nounSingularLower %>",
+      "description": "perform CRUD operations on a single <%= nounSingularLower %>"
+    },
+    {
+      "name": "<%= nounPluralLower %>",
+      "description": "perform CRUD operations on all <%= nounPluralLower %>"
+    },
+    {
+      "name": "utilities",
+      "description": "utility endpoints"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/<%= nounPluralLower %>": {
+      "get": {
+        "tags": [
+          "<%= nounPluralLower %>"
+        ],
+        "description": "retrieve `<%= nounPluralUpper %>`",
+        "responses": {
+          "200": {
+            "description": "successful",
+            "schema": {
+              "title": "<%= nounPluralLower %>",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/<%= nounSingularLower %>"
+              }
+            }
+          },
+          "204": {
+            "description": "no <%= nounPluralLower %>"
+          },
+          "500": {
+            "description": "internal error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "<%= nounPluralLower %>"
+        ],
+        "description": "Insert a <%= nounSingularLower %>",
+        "parameters": [
+          {
+            "$ref": "#/parameters/<%= nounSingularLower %>"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful",
+            "headers": {
+              "location": {
+                "description": "id of new `<%= nounSingularUpper %>`",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/<%= nounSingularLower %>"
+            }
+          },
+          "422": {
+            "description": "`<%= nounSingularUpper %>` entry not valid",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "internal error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "<%= nounPluralLower %>"
+        ],
+        "description": "delete <%= nounPluralUpper %>",
+        "responses": {
+          "204": {
+            "description": "successful"
+          },
+          "500": {
+            "description": "internal error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/<%= nounSingularLower %>/{id}": {
+      "get": {
+        "tags": [
+          "<%= nounSingularLower %>"
+        ],
+        "description": "retrieve `<%= nounSingularUpper %>`",
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful",
+            "schema": {
+              "$ref": "#/definitions/<%= nounSingularLower %>"
+            }
+          },
+          "404": {
+            "description": "`<%= nounSingularUpper %>` not found",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "internal error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "<%= nounSingularLower %>"
+        ],
+        "description": "update one `<%= nounSingularUpper %>`",
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          },
+          {
+            "$ref": "#/parameters/<%= nounSingularLower %>"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful",
+            "schema": {
+              "$ref": "#/definitions/<%= nounSingularLower %>"
+            }
+          },
+          "400": {
+            "description": "the `<%= nounSingularUpper %>` update entry was not valid",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "internal error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "<%= nounSingularLower %>"
+        ],
+        "description": "delete one `<%= nounSingularUpper %>`",
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful"
+          },
+          "400": {
+            "description": "the `<%= nounSingularUpper %>` was not deleted",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "internal error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/doc": {
+      "get": {
+        "tags": [
+          "utilities"
+        ],
+        "description": "api documentation",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "utilities"
+        ],
+        "description": "check the service health",
+        "responses": {
+          "200": {
+            "description": "health",
+            "schema": {
+              "$ref": "#/definitions/health"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "health": {
+      "type": "object",
+      "required": [
+        "health"
+      ],
+      "properties": {
+        "health": {
+          "description": "health",
+          "type": "string"
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "required": [
+        "code",
+        "msg"
+      ],
+      "properties": {
+        "code": {
+          "description": "the http error code",
+          "type": "string"
+        },
+        "msg": {
+          "description": "the error message",
+          "type": "string"
+        }
+      }
+    },
+    "new <%= nounSingularLower %>": {
+      "type": "object",
+      "properties": {
+          "paramOne": {
+            "description": "an example parameter",
+            "type": "string"
+          },
+          "paramTwo": {
+            "description": "an example parameter",
+            "type": "string"
+          }
+      }
+    },
+    "<%= nounSingularLower %>": {
+      "type": "object",
+      "required": [
+        "id",
+        "paramOne",
+        "paramTwo"
+      ],
+      "properties": {
+        "id": {
+          "description": "The id of the `<%= nounSingularUpper %>`",
+          "type": "string"
+        },
+        "paramOne": {
+          "description": "an example parameter",
+          "type": "string"
+        },
+        "paramTwo": {
+          "description": "an example parameter",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "<%= nounSingularLower %>": {
+      "name": "<%= nounSingularLower %>",
+      "in": "body",
+      "description": "`<%= nounSingularUpper %>` to be added",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/new <%= nounSingularLower %>"
+      }
+    },
+    "id": {
+      "name": "id",
+      "in": "path",
+      "description": "id of the `<%= nounSingularUpper %>`",
+      "required": true,
+      "type": "string"
+    }
+  }
+}

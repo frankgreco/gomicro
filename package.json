@@ -1,0 +1,16 @@
+{
+  "name": "generator-gohttp",
+  "version": "0.1.0",
+  "description": "yeoman generator for scaffolding golang http web services",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "files": [
+    "generators"
+  ],
+  "dependencies": {
+    "left-pad": "1.1.3",
+    "pluralize": "^4.0.0",
+    "yeoman-generator": "^1.1.1"
+  }
+}
