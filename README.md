@@ -12,6 +12,7 @@ __*NOTE*__: this project is under active development. Here is the current backlo
 - [ ] mongodb db driver
 - [x] cli tools
 - [ ] unit testing
+- [x] preflight checks
 - [ ] coverage metrics with Coveralls
 - [ ] build metrics with TravisCI
 - [ ] support for multiple go package managers
