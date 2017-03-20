@@ -120,7 +120,7 @@ To complete your setup, run the following commands in your workspace:
 
 $ cd $GOPATH/github.com/frankgreco/gomicro/
 $ make local-dev
-$ ./gomicro start --app-port=8080 --db-port=3306 --db-host=localhost --db-name=calls --db-user=root --db-pass=password
+$ ./gomicro start --app-port=8080 --db-port=3306 --db-host=localhost --db-name=people --db-user=root --db-pass=password
 $ curl -X POST -H "Content-Type: application/json" -d '{
     "paramOne": "foo",
     "paramTwo": "bar"
