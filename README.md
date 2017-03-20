@@ -67,7 +67,7 @@ This Yeoman generator aims to scaffold a robust RESTful microservice.
 ? your email frank@petrasphere.io
 ? vcs github.com
 ? github.com username frankgreco
-? project name gorest
+? project name <%= nounSingularLower %>
 ? resource noun (singular) person
 ? resource noun (plural) people
 ? database type mysql
@@ -76,41 +76,41 @@ This Yeoman generator aims to scaffold a robust RESTful microservice.
                    Creating your workspace...
 =====================================================================
 
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/Makefile
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/table.sql
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/Dockerfile
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/glide.yaml
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/swagger.json
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/docker-compose.yaml
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/.gitignore
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/main.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/route/logger.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/route/router.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/route/routes.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/cmd/root.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/cmd/start.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/cmd/version.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/database/mysql.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/utils/error.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/utils/flag.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/server/server.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/handler.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/util.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/database/driver.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/person.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/handler/people.go
-create Documents/projects/gopath/src/github.com/frankgreco/gorest/models/person.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/Makefile
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/table.sql
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/Dockerfile
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/glide.yaml
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/swagger.json
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/docker-compose.yaml
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/.gitignore
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/main.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/route/logger.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/route/router.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/route/routes.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/cmd/root.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/cmd/start.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/cmd/version.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/database/mysql.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/utils/error.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/utils/flag.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/server/server.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/handler/handler.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/handler/util.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/database/driver.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/handler/person.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/handler/people.go
+create Documents/projects/gopath/src/github.com/frankgreco/gomicro/models/person.go
 
 =====================================================================
    You're almost done! Your workspace has been created here:
-            $GOPATH/github.com/frankgreco/gorest/
+            $GOPATH/github.com/frankgreco/gomicro/
 To complete your setup, run the following commands in your workspace:
             $ make             (use your own database)
             $ make local-dev   (or, create a local database)
-            $ ./gorest --help  (example usage)
+            $ ./gomicro --help  (example usage)
 =====================================================================
 
-$ cd $GOPATH/github.com/frankgreco/gorest/
+$ cd $GOPATH/github.com/frankgreco/gomicro/
 $ make local-dev
 $ ./gomicro start --app-port=8080 --db-port=3306 --db-host=localhost --db-name=calls --db-user=root --db-pass=password
 $ curl -X POST -H "Content-Type: application/json" -d '{
