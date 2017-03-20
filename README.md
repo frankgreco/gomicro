@@ -1,6 +1,7 @@
 > a yeoman generator for golang rest microservices
 
 __*NOTE*__: this project is under active development. Here is the current backlog:
+- [x] CRUD http router
 - [x] mySQL db driver
 - [x] robust logging
 - [x] Docker configuration
