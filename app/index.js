@@ -2,7 +2,8 @@ var Generator = require('yeoman-generator');
 var chalk = require('chalk');
 var leftpad = require('left-pad');
 var fs = require('fs');
-var pluralize = require('pluralize')
+var pluralize = require('pluralize');
+var cmd = require('command-exists').sync
 
 module.exports = class extends Generator {
 
@@ -11,24 +12,38 @@ module.exports = class extends Generator {
     }
 
     initializing() {
-        this.log(`\n` +
+        var errorMessage = "";
+        var hasSoftError = false;
+        var hasHardError = false;
+        var baseMessage = `\n` +
             chalk.yellow(`=====================================================================\n`) +
             chalk.gray(leftpad(`Welcome to`, 35)) + chalk.bold.blue(` gomicro`) + `!\n` +
-            chalk.gray(`This Yeoman generator aims to scaffold a robust RESTful microservice.\n`) +
-            chalk.white(leftpad(`Let\'s get started!`, 43)) +
-            chalk.yellow(`\n=====================================================================`)
-        )
+            chalk.gray(`This Yeoman generator aims to scaffold a robust RESTful microservice.\n`);
 
-        // if(!process.env.GOPATH || !fs.lstatSync(process.env.GOPATH).isDirectory()) {
-        //     this.log(`\n` +
-        //         chalk.red(`=================================================================\n`) +
-        //         chalk.gray(leftpad(`Welcome to`, 33)) + chalk.bold.blue(` gohttp`) + `!\n` +
-        //         chalk.gray(`This Yeoman generator aims to scaffold a robust http web service.\n`) +
-        //         chalk.white(leftpad(`Let\'s get started!`, 41)) +
-        //         chalk.red(`\n=================================================================`)
-        //     )
-        //     process.exit(1)
-        // }
+        if(!cmd('go')) {
+            hasSoftError = true;
+            errorMessage += chalk.yellow(leftpad(`[WARNING] go not installed or not in PATH\n`, 55))
+        }
+
+        if(!cmd('glide')) {
+            hasSoftError = true;
+            errorMessage += chalk.yellow(leftpad(`[WARNING] glide not installed or not in PATH\n`, 58))
+        }
+
+        if(!process.env.GOPATH || !fs.lstatSync(process.env.GOPATH).isDirectory()) {
+            hasHardError = true;
+            errorMessage += chalk.red(leftpad(`[ERROR] GOPATH not properly configured`, 51)) + '\n'
+        }
+
+        if(hasHardError) {
+            this.log(`${baseMessage}` + (errorMessage == "" ? '' : '\n') + `${errorMessage}` + (errorMessage == "" ? '' : '\n') + chalk.white(leftpad(`Please fix the above errors and try again`, 55)) +
+                 chalk.yellow(`\n=====================================================================`)
+             )
+            process.exit(1)
+        }
+        this.log(`${baseMessage}` + (errorMessage == "" ? '' : '\n') + `${errorMessage}` + (errorMessage == "" ? '' : '\n') + chalk.white(leftpad(`Let\'s get started!`, 43)) +
+             chalk.yellow(`\n=====================================================================`)
+        )
     }
 
     prompting() {
