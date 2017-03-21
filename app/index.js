@@ -166,7 +166,7 @@ module.exports = class extends Generator {
         });
 
         this.fs.copyTpl(
-            this.templatePath('database/' + params.db == 'mysql' ? 'mysql.go' : 'mongo.go'),
+            this.templatePath('database/' + (params.db == 'mysql' ? 'mysql' : 'mongo') + '.go'),
             this.destinationPath(`${basePath}/database/driver.go`),
             params
         );

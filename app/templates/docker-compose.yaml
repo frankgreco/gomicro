@@ -4,6 +4,7 @@ version: "3"
 
 services:
   db:
+<%if (db == "mysql") { %>
     image: mysql:latest
     container_name: mysql
     command: mysqld --init-file=/schema/table.sql
@@ -13,6 +14,13 @@ services:
     - "./table.sql:/schema/table.sql"
     ports:
     - "3306:3306"
+<% } %>
+<%if (db == "mongodb") { %>
+    image: mongo:latest
+    container_name: mongo
+    ports:
+    - "27017:27017"
+<% } %>
     networks:
     - default
 

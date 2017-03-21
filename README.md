@@ -4,6 +4,8 @@
 
 __*NOTE*__: this project is under active development. Here is the current backlog:
 - [x] CRUD http router
+- [ ] https support
+- [ ] use gorm for multiple sql dialects
 - [x] mySQL db driver
 - [x] robust logging
 - [x] Docker configuration
@@ -16,6 +18,7 @@ __*NOTE*__: this project is under active development. Here is the current backlo
 - [ ] coverage metrics with Coveralls
 - [ ] build metrics with TravisCI
 - [ ] support for multiple go package managers
+- [ ] verify full support for Windows
 
 ## why gomicro
 Whether you're a beginner with go or not, valuable time is spent setting up a new workspace. Here are some of the reasons to use gomicro to setup yours:
