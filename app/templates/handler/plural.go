@@ -38,11 +38,11 @@ func Create<%= nounSingularUpper %>(db *database.Database, w http.ResponseWriter
 	if err := json.Unmarshal(body, &<%= nounSingularLower %>); err != nil {
         return utils.StatusError{http.StatusUnprocessableEntity, err}
 	}
-    result, err := db.Create(&<%= nounSingularLower %>)
+    id, result, err := db.Create(&<%= nounSingularLower %>)
     if err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
     }
-    w.Header().Set("location", fmt.Sprintf("/<%= nounSingularLower %>/%d", result.Id))
+    w.Header().Set("location", fmt.Sprintf("/<%= nounSingularLower %>/%s", id))
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(http.StatusOK)
     if err := json.NewEncoder(w).Encode(result); err != nil {

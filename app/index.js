@@ -131,7 +131,8 @@ module.exports = class extends Generator {
             nounSingularUpper: cap(this.config.get("promptValues").singular),
             nounSingularLower: this.config.get("promptValues").singular,
             nounPluralUpper: cap(this.config.get("promptValues").plural),
-            nounPluralLower: this.config.get("promptValues").plural
+            nounPluralLower: this.config.get("promptValues").plural,
+            db: this.config.get("promptValues").db
         }
 
         var templateFiles = [
@@ -149,7 +150,6 @@ module.exports = class extends Generator {
             "cmd/root.go",
             "cmd/start.go",
             "cmd/version.go",
-            "database/mysql.go",
             "utils/error.go",
             "utils/flag.go",
             "server/server.go",
@@ -164,6 +164,12 @@ module.exports = class extends Generator {
                 params
             );
         });
+
+        this.fs.copyTpl(
+            this.templatePath('database/' + params.db == 'mysql' ? 'mysql.go' : 'mongo.go'),
+            this.destinationPath(`${basePath}/database/driver.go`),
+            params
+        );
 
         this.fs.copyTpl(
             this.templatePath('database/mysql.go'),

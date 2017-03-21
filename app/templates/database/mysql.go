@@ -2,6 +2,7 @@ package database
 
 import (
     "fmt"
+    "strconv"
     "database/sql"
 
     _ "github.com/go-sql-driver/mysql"
@@ -16,7 +17,7 @@ type Database struct {
     Name string
 }
 
-func (db *Database) Create(<%= nounSingularLower %> *models.<%= nounSingularUpper %>) (*models.<%= nounSingularUpper %>, error) {
+func (db *Database) Create(<%= nounSingularLower %> *models.<%= nounSingularUpper %>) (string, *models.<%= nounSingularUpper %>, error) {
     // open db
     database, err := sql.Open("mysql", createDBConnString(db.Host, db.Port, db.Name, db.User, db.Pass))
     if err != nil{
@@ -42,7 +43,7 @@ func (db *Database) Create(<%= nounSingularLower %> *models.<%= nounSingularUppe
         return nil, err
     }
     <%= nounSingularLower %>.Id = id
-    return <%= nounSingularLower %>, nil
+    return strconv.FormatInt(id, 10), <%= nounSingularLower %>, nil
 }
 
 func (db *Database) RetrieveOne(id string) (*models.<%= nounSingularUpper %>, error) {
