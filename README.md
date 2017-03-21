@@ -116,7 +116,7 @@ create Documents/projects/gopath/src/github.com/frankgreco/gomicro/models/person
 
 =====================================================================
    You're almost done! Your workspace has been created here:
-            $GOPATH/srcgithub.com/frankgreco/gomicro/
+            $GOPATH/src/github.com/frankgreco/gomicro/
 To complete your setup, run the following commands in your workspace:
             $ make             (use your own database)
             $ make local-dev   (or, create a local database)
