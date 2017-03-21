@@ -17,10 +17,10 @@ type Database struct {
     Name string
 }
 
-func (db *Database) Create(<%= nounSingularLower %> *models.<%= nounSingularUpper %>) (string, *models.<%= nounSingularUpper %>, error) {
+func (db *Database) Create(<%= nounSingularLower %> *models.<%= nounSingularUpper %>) (*string, *models.<%= nounSingularUpper %>, error) {
     mongoSession, err := createMongoSession(db)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
     mongoSession.SetMode(mgo.Monotonic, true)
     id := bson.NewObjectId()

@@ -202,7 +202,7 @@ module.exports = class extends Generator {
         this.log(`\n` +
             chalk.magenta(`=====================================================================\n`) +
             chalk.gray(leftpad(`You\'re almost done! Your workspace has been created here:`, 63)) + `\n` +
-            chalk.white.bold(leftpad(`$GOPATH/${answers.vcs}/${answers.user}/${answers.project}/`, 52)) + `\n` +
+            chalk.white.bold(leftpad(`$GOPATH/src/${answers.vcs}/${answers.user}/${answers.project}/`, 52)) + `\n` +
             chalk.gray(leftpad(`To complete your setup, run the following commands in your workspace:`, 55)) + `\n` +
             chalk.white(leftpad('$ ', 17)) + chalk.cyan(`make `) + chalk.gray(leftpad(`(use your own database)`, 35)) + `\n` +
             chalk.white(leftpad('$ ', 17)) + chalk.cyan(`make local-dev `) + chalk.gray(leftpad(`(or, create a local database)`, 31)) + `\n` +

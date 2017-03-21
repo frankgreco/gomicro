@@ -17,11 +17,11 @@ type Database struct {
     Name string
 }
 
-func (db *Database) Create(<%= nounSingularLower %> *models.<%= nounSingularUpper %>) (string, *models.<%= nounSingularUpper %>, error) {
+func (db *Database) Create(<%= nounSingularLower %> *models.<%= nounSingularUpper %>) (*string, *models.<%= nounSingularUpper %>, error) {
     // open db
     database, err := sql.Open("mysql", createDBConnString(db.Host, db.Port, db.Name, db.User, db.Pass))
     if err != nil{
-        return nil, err
+        return nil, nil, err
     }
     // make query
     result, err := database.Exec(fmt.Sprintf("INSERT INTO %s (paramOne, paramTwo) VALUES (%s, %s)",
@@ -31,16 +31,16 @@ func (db *Database) Create(<%= nounSingularLower %> *models.<%= nounSingularUppe
     ))
 
     if err != nil{
-        return nil, err
+        return nil, nil, err
     }
     // close db
     if err := database.Close(); err != nil {
-        return nil, err
+        return nil, nil, err
     }
 
     id, err := result.LastInsertId()
     if err != nil {
-        return nil, err
+        return nil, nil, err
     }
     <%= nounSingularLower %>.Id = id
     return strconv.FormatInt(id, 10), <%= nounSingularLower %>, nil
