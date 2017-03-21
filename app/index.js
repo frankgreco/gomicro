@@ -18,7 +18,9 @@ module.exports = class extends Generator {
         var baseMessage = `\n` +
             chalk.yellow(`=====================================================================\n`) +
             chalk.gray(leftpad(`Welcome to`, 35)) + chalk.bold.blue(` gomicro`) + `!\n` +
-            chalk.gray(`This Yeoman generator aims to scaffold a robust RESTful microservice.\n`);
+            chalk.gray(`This Yeoman generator aims to scaffold a robust RESTful microservice.\n`) +
+            '\n' + chalk.red(leftpad(`[WARNING] this project is under active development!\n`, 63)) +
+            chalk.red(leftpad(`results may not be as expected.`, 52)) + '\n\n';
 
         if(!cmd('go')) {
             hasSoftError = true;
