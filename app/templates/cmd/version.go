@@ -15,6 +15,6 @@ var versionCmd = &cobra.Command{
     Short: `print the version information`,
     Long:  `print the version information`,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("Hugo Static Site Generator v0.9 -- HEAD")
+        fmt.Println("v1.0")
     },
 }
