@@ -14,14 +14,14 @@ import (
 
 func Retrieve<%= nounSingularUpper %>(db *database.Database, w http.ResponseWriter, r *http.Request) error {
     id := mux.Vars(r)["id"]
-    nounSingularLower, err := db.RetrieveOne(id)
+    <%= nounSingularLower %>, err := db.RetrieveOne(id)
     if err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
     }
     w.Header().Set("Content-Type", "application/json")
-    if nounSingularLower != nil {
+    if <%= nounSingularLower %> != nil {
         w.WriteHeader(http.StatusOK)
-        if err := json.NewEncoder(w).Encode(nounSingularLower); err != nil {
+        if err := json.NewEncoder(w).Encode(<%= nounSingularLower %>); err != nil {
             return utils.StatusError{http.StatusInternalServerError, err}
         }
     } else {
@@ -32,7 +32,7 @@ func Retrieve<%= nounSingularUpper %>(db *database.Database, w http.ResponseWrit
 
 func Update<%= nounSingularUpper %>(db *database.Database, w http.ResponseWriter, r *http.Request) error {
     id := mux.Vars(r)["id"]
-    var nounSingularLower models.<%= nounSingularUpper %>
+    <%= nounSingularLower %> := models.<%= nounSingularUpper %>{}
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
     if err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
@@ -40,30 +40,33 @@ func Update<%= nounSingularUpper %>(db *database.Database, w http.ResponseWriter
 	if err := r.Body.Close(); err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
 	}
-	if err := json.Unmarshal(body, &nounSingularLower); err != nil {
+	if err := json.Unmarshal(body, &<%= nounSingularLower %>); err != nil {
         return utils.StatusError{http.StatusUnprocessableEntity, err}
 	}
-    rowsAffected, err := db.UpdateOne(nounSingularLower, id)
+    result, err := db.UpdateOne(<%= nounSingularLower %>, id)
     if err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
     }
     w.Header().Set("Content-Type", "application/json")
-    if *rowsAffected == 0 {
+    if result == nil {
         w.WriteHeader(http.StatusNotFound)
     } else {
         w.WriteHeader(http.StatusOK)
+        if err := json.NewEncoder(w).Encode(result); err != nil {
+            return utils.StatusError{http.StatusInternalServerError, err}
+        }
     }
     return nil
 }
 
 func Delete<%= nounSingularUpper %>(db *database.Database, w http.ResponseWriter, r *http.Request) error {
     id := mux.Vars(r)["id"]
-    rowsAffected, err := db.DeleteOne(id)
+    result, err := db.DeleteOne(id)
     if err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
     }
     w.Header().Set("Content-Type", "application/json")
-    if *rowsAffected == 0 {
+    if result == nil {
         w.WriteHeader(http.StatusNotFound)
     } else {
         w.WriteHeader(http.StatusNoContent)

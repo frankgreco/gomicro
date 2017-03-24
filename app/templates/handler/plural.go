@@ -17,17 +17,20 @@ func Retrieve<%= nounPluralUpper %>(db *database.Database, w http.ResponseWriter
     if err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
     }
-    fmt.Println(len(*result))
     w.Header().Set("Content-Type", "application/json")
-    w.WriteHeader(http.StatusOK)
-    if err := json.NewEncoder(w).Encode(result); err != nil {
-        return utils.StatusError{http.StatusInternalServerError, err}
+    if result != nil {
+        w.WriteHeader(http.StatusOK)
+        if err := json.NewEncoder(w).Encode(result); err != nil {
+            return utils.StatusError{http.StatusInternalServerError, err}
+        }
+    } else {
+        w.WriteHeader(http.StatusNotFound)
     }
     return nil
 }
 
 func Create<%= nounSingularUpper %>(db *database.Database, w http.ResponseWriter, r *http.Request) error {
-    var <%= nounSingularLower %> models.<%= nounSingularUpper %>
+    <%= nounSingularLower %> := models.<%= nounSingularUpper %>{}
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
     if err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
@@ -38,11 +41,11 @@ func Create<%= nounSingularUpper %>(db *database.Database, w http.ResponseWriter
 	if err := json.Unmarshal(body, &<%= nounSingularLower %>); err != nil {
         return utils.StatusError{http.StatusUnprocessableEntity, err}
 	}
-    id, result, err := db.Create(&<%= nounSingularLower %>)
+    result, err := db.Create(&<%= nounSingularLower %>)
     if err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
     }
-    w.Header().Set("location", fmt.Sprintf("/<%= nounSingularLower %>/%s", id))
+    w.Header().Set("location", fmt.Sprintf("/<%= nounSingularLower %>/%s", result.ID))
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(http.StatusOK)
     if err := json.NewEncoder(w).Encode(result); err != nil {
@@ -52,7 +55,7 @@ func Create<%= nounSingularUpper %>(db *database.Database, w http.ResponseWriter
 }
 
 func Delete<%= nounPluralUpper %>(db *database.Database, w http.ResponseWriter, r *http.Request) error {
-    if err := db.DeleteAll(); err != nil {
+    if _, err := db.DeleteAll(); err != nil {
         return utils.StatusError{http.StatusInternalServerError, err}
     }
     w.Header().Set("Content-Type", "application/json")

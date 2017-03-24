@@ -3,26 +3,34 @@
 version: "3"
 
 services:
-  db:
 <%if (db == "mysql") { %>
+  mysql:
     image: mysql:latest
     container_name: mysql
-    command: mysqld --init-file=/schema/table.sql
+    command: mysqld --init-file=/schema/schema.sql
     environment:
     - MYSQL_ROOT_PASSWORD=password
     volumes:
-    - "./table.sql:/schema/table.sql"
+    - "./schema.sql:/schema/schema.sql"
     ports:
     - "3306:3306"
-<% } %>
-<%if (db == "mongodb") { %>
-    image: mongo:latest
-    container_name: mongo
-    ports:
-    - "27017:27017"
-<% } %>
     networks:
     - default
+<% } %>
+<%if (db == "postgres") { %>
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+    - POSTGRES_USER=root
+    - POSTGRES_PASSWORD=password
+    volumes:
+    - "./postgres.sql:/docker-entrypoint-initdb.d/table.sql"
+    ports:
+    - "5432:5432"
+    networks:
+    - default
+<% } %>
 
 networks:
   default:

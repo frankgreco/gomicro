@@ -4,6 +4,8 @@ var leftpad = require('left-pad');
 var fs = require('fs');
 var pluralize = require('pluralize');
 var cmd = require('command-exists').sync
+var certs = require('selfsigned');
+var fs = require('fs');
 
 module.exports = class extends Generator {
 
@@ -95,13 +97,31 @@ module.exports = class extends Generator {
             store   : true,
             default : function(answers) {
                 return pluralize(answers.singular)
-            },
+            }
+        }, {
+            type    : 'checkbox',
+            name    : 'schemes',
+            message : 'http schemes',
+            choices : [
+                {
+                    name: 'http',
+                    checked: true
+                },
+                {
+                    name: 'https'
+                }
+            ],
+            default : ['http'],
+            store   : true,
+            validate: function(answers){
+                return answers.length < 1 ? 'choose at least one scheme' : true
+            }
         }, {
             type    : 'list',
             name    : 'db',
             message : 'database type',
-            choices : [ 'mongodb', 'mysql'],
-            defulat : 'mongodb',
+            choices : [ 'mysql', 'postgres', 'sqlite', 'mongodb'],
+            default : 'mysql',
             store   : true,
         }]).then((answers) => {
             return;
@@ -110,20 +130,37 @@ module.exports = class extends Generator {
 
     writing() {
 
+        var basePath = `${process.env.GOPATH}/src/${this.config.get("promptValues").vcs}/${this.config.get("promptValues").user}/${this.config.get("promptValues").project}`
+
         var self = this;
 
         this.log(`\n` +
             chalk.green(`=====================================================================\n`) +
-            chalk.gray(leftpad(`Creating your workspace...`, 45)) +
+            chalk.gray(leftpad(`Creating certificates...`, 47))
+        )
+
+        //generating certificates
+        var pems = certs.generate([
+            { name: 'commonName', value: 'localhost' }
+        ], {
+            keySize: 2048,
+            days: 365,
+            algorithm: 'sha256'
+        })
+
+        if(!fs.existsSync(`${basePath}/certs`)) {
+            fs.mkdirSync(`${basePath}/certs`)
+        }
+        var crt = fs.writeFileSync(`${basePath}/certs/server.crt`, pems.cert, { mode: 400 })
+        var key = fs.writeFileSync(`${basePath}/certs/server.key`, pems.private, { mode: 400 })
+
+        this.log(chalk.gray(leftpad(`Creating your workspace...`, 49)) +
             chalk.green(`\n=====================================================================\n`)
         )
 
         var cap = function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
-
-        var basePath = `${process.env.GOPATH}/src/${this.config.get("promptValues").vcs}/${this.config.get("promptValues").user}/${this.config.get("promptValues").project}`
-
         var params = {
             name: this.config.get("promptValues").name,
             email: this.config.get("promptValues").email,
@@ -134,68 +171,58 @@ module.exports = class extends Generator {
             nounSingularLower: this.config.get("promptValues").singular,
             nounPluralUpper: cap(this.config.get("promptValues").plural),
             nounPluralLower: this.config.get("promptValues").plural,
-            db: this.config.get("promptValues").db
+            db: this.config.get("promptValues").db,
+            http: this.config.get("promptValues").schemes.includes('http')
+            https: this.config.get("promptValues").schemes.includes('https')
         }
 
         var templateFiles = [
-            "Makefile",
-            "table.sql",
-            "Dockerfile",
-            "glide.yaml",
-            "swagger.json",
-            "docker-compose.yaml",
-            ".gitignore",
-            "main.go",
-            "route/logger.go",
-            "route/router.go",
-            "route/routes.go",
-            "cmd/root.go",
-            "cmd/start.go",
-            "cmd/version.go",
-            "utils/error.go",
-            "utils/flag.go",
-            "server/server.go",
-            "handler/handler.go",
-            "handler/util.go"
-        ];
+            {from: "cmd/root.go",           to: "cmd/root.go"},
+            {from: "cmd/start.go",          to: "cmd/start.go"},
+            {from: "cmd/version.go",        to: "cmd/version.go"},
+            {from: "database/driver.go",    to: "database/driver.go"},
+            {from: "handler/handler.go",    to: "handler/handler.go"},
+            {from: "handler/plural.go",     to: `handler/${this.config.get("promptValues").plural}.go`},
+            {from: "handler/singular.go",   to: `handler/${this.config.get("promptValues").singular}.go`},
+            {from: "handler/util.go",       to: "handler/util.go"},
+            {from: "models/model.go",       to: "models/model.go"},
+            {from: "route/logger.go",       to: "route/logger.go"},
+            {from: "route/router.go",       to: "route/router.go"},
+            {from: "route/routes.go",       to: "route/routes.go"},
+            {from: "server/server.go",      to: "server/server.go"},
+            {from: "utils/error.go",        to: "utils/error.go"},
+            {from: "utils/flag.go",         to: "utils/flag.go"},
+            {from: ".gitignore",            to: ".gitignore"},
+            {from: "Dockerfile",            to: "Dockerfile"},
+            {from: "glide.yaml",            to: "glide.yaml"},
+            {from: "main.go",               to: "main.go"},
+            {from: "Makefile",              to: "Makefile"},
+            {from: "swagger.json",          to: "swagger.json"},
+        ]
 
         templateFiles.forEach(function(file) {
             self.fs.copyTpl(
-                self.templatePath(file),
-                self.destinationPath(`${basePath}/${file}`),
+                self.templatePath(file.from),
+                self.destinationPath(`${basePath}/${file.to}`),
                 params
             );
         });
 
-        this.fs.copyTpl(
-            this.templatePath('database/' + (params.db == 'mysql' ? 'mysql' : 'mongo') + '.go'),
-            this.destinationPath(`${basePath}/database/driver.go`),
-            params
-        );
+        if(['mysql', 'postgres'].includes(params.db)) {
+            this.fs.copyTpl(
+                this.templatePath(`schemas/${params.db}.sql`),
+                this.destinationPath(`${basePath}/schema.sql`),
+                params
+            );
+        }
 
-        this.fs.copyTpl(
-            this.templatePath('database/mysql.go'),
-            this.destinationPath(`${basePath}/database/driver.go`),
-            params
-        );
-
-        this.fs.copyTpl(
-            this.templatePath('handler/singular.go'),
-            this.destinationPath(`${basePath}/handler/${this.config.get("promptValues").singular}.go`),
-            params
-        );
-
-        this.fs.copyTpl(
-            this.templatePath('handler/plural.go'),
-            this.destinationPath(`${basePath}/handler/${this.config.get("promptValues").plural}.go`),
-            params
-        );
-
-        this.fs.copyTpl(
-            this.templatePath('models/model.go'),
-            this.destinationPath(`${basePath}/models/${this.config.get("promptValues").singular}.go`),
-            params
-        );
+        if(!['sqlite'].includes(params.db)) {
+            this.fs.copyTpl(
+                this.templatePath('docker-compose.yaml'),
+                this.destinationPath(`${basePath}/docker-compose.yaml`),
+                params
+            );
+        }
 
     }
 
@@ -208,7 +235,7 @@ module.exports = class extends Generator {
             chalk.gray(leftpad(`To complete your setup, run the following commands in your workspace:`, 55)) + `\n` +
             chalk.white(leftpad('$ ', 17)) + chalk.cyan(`make `) + chalk.gray(leftpad(`(use your own database)`, 35)) + `\n` +
             chalk.white(leftpad('$ ', 17)) + chalk.cyan(`make local-dev `) + chalk.gray(leftpad(`(or, create a local database)`, 31)) + `\n` +
-            chalk.white(leftpad('$ ', 17)) + chalk.cyan(`./${answers.project} --help`) + chalk.gray(leftpad(`(example usage)`, 17)) +
+            chalk.white(leftpad('$ ', 17)) + chalk.cyan(`./${answers.project} --help`) + chalk.gray(leftpad(`(example usage)`, 18)) +
             chalk.magenta(`\n=====================================================================`)
         )
     }
