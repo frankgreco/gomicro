@@ -16,12 +16,13 @@ func Start(db *database.Database, port string) {
     originsOk := handlers.AllowedOrigins([]string{"*"})
     methodsOk := handlers.AllowedMethods([]string{"GET", "DELETE", "POST", "PUT"})
 
-    <%if https { %>
-    http.ListenAndServeTLS(fmt.Sprintf(":%s", ":443"), "certs/server.crt", "certs/server.key", handlers.CORS(headersOk, originsOk, methodsOk)(router))
-    http.ListenAndServe(fmt.Sprintf("127.0.0.1:%s", port), handlers.CORS(headersOk, originsOk, methodsOk)(router))
+    <%if (https) { %>
+    err := http.ListenAndServeTLS(fmt.Sprintf(":%s", "443"), "certs/server.crt", "certs/server.key", handlers.CORS(headersOk, originsOk, methodsOk)(router))
+    if err != nil {
+        panic(err.Error())
+    }
     <% } %>
-    <%if http { %>
+    <%if (http) { %>
     http.ListenAndServe(fmt.Sprintf(":%s", port), handlers.CORS(headersOk, originsOk, methodsOk)(router))
     <% } %>
-
 }

@@ -99,23 +99,12 @@ module.exports = class extends Generator {
                 return pluralize(answers.singular)
             }
         }, {
-            type    : 'checkbox',
-            name    : 'schemes',
-            message : 'http schemes',
-            choices : [
-                {
-                    name: 'http',
-                    checked: true
-                },
-                {
-                    name: 'https'
-                }
-            ],
-            default : ['http'],
+            type    : 'list',
+            name    : 'scheme',
+            message : 'http scheme',
+            choices : [ 'http', 'https'],
+            default : 'http',
             store   : true,
-            validate: function(answers){
-                return answers.length < 1 ? 'choose at least one scheme' : true
-            }
         }, {
             type    : 'list',
             name    : 'db',
@@ -134,25 +123,31 @@ module.exports = class extends Generator {
 
         var self = this;
 
-        this.log(`\n` +
-            chalk.green(`=====================================================================\n`) +
-            chalk.gray(leftpad(`Creating certificates...`, 47))
-        )
+        if(this.config.get("promptValues").scheme == 'https') {
+            this.log(`\n` +
+                chalk.green(`=====================================================================\n`) +
+                chalk.gray(leftpad(`Creating certificates...`, 47))
+            )
 
-        //generating certificates
-        var pems = certs.generate([
-            { name: 'commonName', value: 'localhost' }
-        ], {
-            keySize: 2048,
-            days: 365,
-            algorithm: 'sha256'
-        })
+            //generating certificates
+            var pems = certs.generate([
+                { name: 'commonName', value: 'localhost' }
+            ], {
+                keySize: 2048,
+                days: 365,
+                algorithm: 'sha256'
+            })
 
-        if(!fs.existsSync(`${basePath}/certs`)) {
-            fs.mkdirSync(`${basePath}/certs`)
+            if(!fs.existsSync(`${basePath}/certs`)) {
+                fs.mkdirSync(`${basePath}/certs`)
+            }
+            var crt = fs.writeFileSync(`${basePath}/certs/server.crt`, pems.cert, { mode: 400 })
+            var key = fs.writeFileSync(`${basePath}/certs/server.key`, pems.private, { mode: 400 })
+        } else {
+            this.log(`\n` +
+                chalk.green(`=====================================================================`)
+            )
         }
-        var crt = fs.writeFileSync(`${basePath}/certs/server.crt`, pems.cert, { mode: 400 })
-        var key = fs.writeFileSync(`${basePath}/certs/server.key`, pems.private, { mode: 400 })
 
         this.log(chalk.gray(leftpad(`Creating your workspace...`, 49)) +
             chalk.green(`\n=====================================================================\n`)
@@ -172,8 +167,8 @@ module.exports = class extends Generator {
             nounPluralUpper: cap(this.config.get("promptValues").plural),
             nounPluralLower: this.config.get("promptValues").plural,
             db: this.config.get("promptValues").db,
-            http: this.config.get("promptValues").schemes.includes('http')
-            https: this.config.get("promptValues").schemes.includes('https')
+            http: this.config.get("promptValues").scheme == 'http',
+            https: this.config.get("promptValues").scheme == 'https'
         }
 
         var templateFiles = [

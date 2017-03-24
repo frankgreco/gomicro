@@ -6,9 +6,8 @@
 
 __*NOTE*__: this project is under active development. Here is the current backlog:
 - [x] CRUD http router
-- [ ] https support
-- [ ] use gorm for multiple sql dialects
-- [x] mySQL db driver
+- [x] https support
+- [x] use gorm for multiple sql dialects
 - [x] robust logging
 - [x] Docker configuration
 - [ ] linting
