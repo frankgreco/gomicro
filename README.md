@@ -46,6 +46,9 @@ $ npm install -g generator-gomicro
 $ yo gomicro
 ```
 
+## ssl
+If `https` is selected by the user when prompted, self-signed certificates will automatically be generated and the application will be served over ssl. 
+
 ## go libraries
 This project aims to use the best and most widely used libraries. Here are the main libraries that gomicro uses:
 

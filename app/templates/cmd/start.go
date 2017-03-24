@@ -8,8 +8,7 @@ import (
 )
 
 func init() {
-    startCmd.Flags().String("app-insecure-port", "8080", "insecure application port")
-    startCmd.Flags().String("app-secure-port", "443", "secure application port")
+    startCmd.Flags().String("app-port", "8080", "application port")
     <%if (db != "sqlite") { %>
     startCmd.Flags().String("db-port", "3306", "database port")
     startCmd.Flags().String("db-host", "127.0.0.1", "database hostname")
