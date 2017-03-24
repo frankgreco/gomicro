@@ -46,15 +46,22 @@ $ npm install -g generator-gomicro
 $ yo gomicro
 ```
 
+## database
+A user will be prompted to choose between the following database options for their datastore:
+* MySQL
+* Sqlite
+* PostgreSQL
+
 ## ssl
-If `https` is selected by the user when prompted, self-signed certificates will automatically be generated and the application will be served over ssl. 
+If `https` is selected by the user when prompted, self-signed certificates will automatically be generated and the application will be served over ssl.
 
 ## go libraries
 This project aims to use the best and most widely used libraries. Here are the main libraries that gomicro uses:
 
 **command line interface**: [spf13/cobra](https://github.com/spf13/cobra)  
 **http router**: [gorilla/mux](https://github.com/gorilla/mux)  
-**logging**: [sirupsen/logrus](https://github.com/sirupsen/logrus)  
+**logging**: [sirupsen/logrus](https://github.com/sirupsen/logrus)
+**ORM library**: [jinzhu/gorm](https://github.com/jinzhu/gorm)  
 
 ## usage
 So you know what to expect, here is a sample cli interaction:

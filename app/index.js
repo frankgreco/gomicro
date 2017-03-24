@@ -109,7 +109,7 @@ module.exports = class extends Generator {
             type    : 'list',
             name    : 'db',
             message : 'database type',
-            choices : [ 'mysql', 'postgres', 'sqlite', 'mongodb'],
+            choices : [ 'mysql', 'postgres', 'sqlite'],
             default : 'mysql',
             store   : true,
         }]).then((answers) => {
