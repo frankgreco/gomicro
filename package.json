@@ -1,6 +1,6 @@
 {
   "name": "generator-gomicro",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "yeoman generator for RESTful microservices written in go",
   "keywords": [
     "yeoman-generator"
@@ -26,7 +26,8 @@
     "url": "https://github.com/petrasphere/gomicro"
   },
   "devDependencies": {
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "yeoman-test": "^1.6.0"
   },
   "dependencies": {
     "left-pad": "^1.1.3",
