@@ -18,7 +18,7 @@ addons:
       - g++-4.8
 
 install:
-  - npm install -g npm
+  - npm install -g yarn
   - cd ~/build/petrasphere/gomicro && yarn
 
 script:
