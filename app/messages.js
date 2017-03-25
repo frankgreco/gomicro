@@ -10,7 +10,7 @@ exports.prompt = function() {
             '\n' +
             chalk.gray(leftpad('Go workspaces like to be created a certain way', 57)) +
             '\n' +
-            `${chalk.gray(leftpad(`(e.g. `, 17))}${chalk.green(`$GOPATH/src/github.com/frankgreco/gohttp`)}${chalk.gray(`)`)}` +
+            `${chalk.gray(leftpad(`(e.g. `, 17))}${chalk.green(`$GOPATH/src/github.com/frankgreco/gomicro`)}${chalk.gray(`)`)}` +
             '\n' +
             chalk.gray(leftpad('To do this, let\'s get some information about your project', 63)) +
             '\n' +
@@ -21,23 +21,22 @@ exports.prompt = function() {
 
 exports.write = function() {
 
-    return {
-        certs: function() {
-            return  chalk.green(BAR) +
-                    '\n' +
-                    chalk.gray(leftpad(`Creating certificates...`, 47)) +
-                    '\n' +
-                    chalk.green(BAR)
-        },
-        workspace: function() {
-            return  chalk.green(BAR) +
-                    '\n' +
-                    chalk.gray(leftpad(`Creating your workspace...`, 49)) +
-                    '\n' +
-                    chalk.green(BAR)
-        }
-    }
+    return  '\n' +
+            chalk.green(BAR) +
+            '\n' +
+            chalk.gray(leftpad(`Creating your workspace...`, 49)) +
+            '\n' +
+            chalk.green(BAR)
 
+}
+
+exports.certs = function() {
+    return  '\n' +
+            chalk.green(BAR) +
+            '\n' +
+            chalk.gray(leftpad(`Creating certificates...`, 47)) +
+            '\n' +
+            chalk.green(BAR)
 }
 
 exports.init = function(errors) {
@@ -51,11 +50,11 @@ exports.init = function(errors) {
                     '\n';
 
     errors.forEach((error, index) => {
-        message += `\n${chalk.red(leftpad(`[ERROR] ${error}`, 51))}`
+        message += `\n${chalk.red(leftpad(`[ERROR] ${error}`, 22 + error.length))}`
     })
 
     message += errors.length > 0
-        ? `\n\n${chalk.white(leftpad(`Please fix the above errors and try again`, 55))}`
+        ? `\n\n${chalk.white(leftpad(`Please fix the above errors and try again`, 55))}\n`
         : `${chalk.white(leftpad(`Let\'s get started!`, 43))}\n`
 
     message += chalk.yellow(BAR)
@@ -70,15 +69,13 @@ exports.end = function(params) {
             '\n' +
             chalk.gray(leftpad(`You\'re almost done! Your workspace has been created here:`, 63)) +
             '\n' +
-            chalk.white.bold(leftpad(`$GOPATH/src/${params.vcs}/${params.user}/${params.project}/`, 52)) +
+            chalk.white.bold(leftpad(`$GOPATH/src/${params.vcs}/${params.user}/${params.project}/`, 54)) +
             '\n' +
             chalk.gray(leftpad(`To complete your setup, run the following commands in your workspace:`, 55)) +
             '\n' +
-            chalk.white(leftpad('$ ', 17)) + chalk.cyan(`make `) + chalk.gray(leftpad(`(use your own database)`, 35)) +
+            chalk.white(leftpad('$ ', 25)) + chalk.cyan(`make [local-dev]`) +
             '\n' +
-            chalk.white(leftpad('$ ', 17)) + chalk.cyan(`make local-dev`) + chalk.gray(leftpad(`(or, create a local database)`, 31)) +
-            '\n' +
-            chalk.white(leftpad('$ ', 17)) + chalk.cyan(`./${params.project} --help`) + chalk.gray(leftpad(`(example usage)`, 18)) +
+            chalk.white(leftpad('$ ', 25)) + chalk.cyan(`./${params.project} --help`) +
             '\n' +
             chalk.magenta(BAR)
 

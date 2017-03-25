@@ -28,7 +28,7 @@ exports.execute = function() {
     }
 
     if(!isDepToolInstalled('glide')) {
-        erros.push('glide not installed or not in PATH')
+        errors.push('glide not installed or not in PATH')
     }
 
     if(!isGOPATH()) {

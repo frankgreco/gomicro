@@ -31,14 +31,25 @@ module.exports = class extends Generator {
 
     }
 
+    certificates() {
+
+        let params = prompts.getValues(this.config.get("promptValues"))
+        let basePath = `${process.env.GOPATH}/src/${params.vcs}/${params.repo}/${params.project}`
+
+        if(params.scheme == 'https') {
+            this.log(messages.certs())
+            pki.create(basePath)
+        }
+
+    }
+
     writing() {
 
         let self = this;
         let params = prompts.getValues(this.config.get("promptValues"))
         let basePath = `${process.env.GOPATH}/src/${params.vcs}/${params.repo}/${params.project}`
-        let msg = messages.write()
 
-        this.log(msg.workspace())
+        this.log(messages.write())
 
         transfers.get(params).forEach(file => {
             self.fs.copyTpl(
@@ -47,11 +58,6 @@ module.exports = class extends Generator {
                 params
             );
         });
-
-        if(params.scheme == 'https') {
-            this.log(msg.certs())
-            pki.create(basePath)
-        }
 
     }
 
