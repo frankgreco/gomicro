@@ -6,30 +6,51 @@
 
 > project backlog [here](https://github.com/petrasphere/gomicro/projects/1)
 
-### Quick Start
+## Quick Start
 
 ```sh
 $ npm install -g generator-gomicro
 $ yo gomicro
 ```
 
-### Overview
+## Table of Contents
+* [Overview](#overview)
+* [Components](#components)
+  * [Command Line Interface](#command-line-interface)
+  * [Database Driver](#database-driver)
+  * [API Documentation](#api-documentation)
+  * [Unit Testing](#unit-testing)
+  * [HTTP Access Control (CORS)](#http-access-control-cors)
+  * [Logging](#logging)
+  * [Authorization](#authorization)
+  * [SSL](#ssl)
+  * [Docker](#docker)
+  * [Build Scripts](#build-scripts)
+  * [Local Development](#local-development)
+  * [Deployment](#deployment)
+  * [Error Handling](#error-handling)
+  * [Health Checks](#health-checks)
 
-**gomicro** aims to provide a production grade generator for applications that implement a restful api through create/retrieve/update/delete (CRUD) operations. Here are the aspects that gomicro implements to make your application production ready:
+## Overview
+
+gomicro aims to provide a production grade generator for applications that implement a restful api through create/retrieve/update/delete (CRUD) operations. Here are the aspects that gomicro implements to make your application production ready:
+
+## Components
 
 #### Command Line Interface
-#### Logging
+#### Database Driver
 #### API Documentation
 #### Unit Testing
-#### Database Driver
 #### HTTP Access Control (CORS)
-#### Linting
+#### Logging
 #### Authorization
 #### SSL
-#### Error Handling
-#### Health Check
 #### Docker
 #### Build Scripts
+#### Local Development
+#### Deployment
+#### Error Handling
+#### Health Checks
 
 ## database
 A user will be prompted to choose between the following database options for their datastore:
