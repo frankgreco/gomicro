@@ -1,5 +1,17 @@
-var certs = require('selfsigned');
-var fs = require('fs');
+var certs   = require('selfsigned');
+var fs      = require('fs');
+var path    = require('path');
+var mkdirp  = require('mkdirp');
+
+fs.mkdirParent = function(dirPath, mode, callback) {
+    fs.mkdir(dirPath, mode, function(error) {
+        if (error) {
+            fs.mkdirParent(path.dirname(dirPath), mode, callback);
+            fs.mkdirParent(dirPath, mode, callback);
+        }
+        callback && callback(error);
+    });
+}
 
 exports.create = function(basePath) {
 
@@ -12,16 +24,8 @@ exports.create = function(basePath) {
         algorithm: 'sha256'
     });
 
-    createCertDirectory(basePath);
-    writeCertsToFile(basePath, pems);
-
-}
-
-function createCertDirectory(basePath) {
-
-    if(!fs.existsSync(`${basePath}/certs`)) {
-        fs.mkdirSync(`${basePath}/certs`)
-    }
+    mkdirp.sync(`${basePath}/certs`)
+    writeCertsToFile(basePath, pems)
 
 }
 
