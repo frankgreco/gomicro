@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "coverage": "babel-istanbul cover mocha",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "files": [
@@ -32,9 +32,8 @@
     "yeoman-test": "^1.6.0",
     "yeoman-assert": "^3.0.0",
     "coveralls": "^2.11.14",
-    "babel-istanbul": "^0.11.0",
     "eslint": "^3.7.1",
-    "babel-cli": "^6.7.7"
+    "istanbul": "^1.0.0-alpha"
   },
   "dependencies": {
     "left-pad": "^1.1.3",
