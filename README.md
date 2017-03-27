@@ -108,11 +108,50 @@ The token file is a csv file with 1 column: token. When using bearer token authe
 The server can be secured via SSL by setting the `--tls-cert-file=SOMEFILE` and `--tls-private-key-file=SOMEFILE` cli flags. The generator will automatically generate self-signed certificates with a common name of `localhost`. If these cli flags are not set, the server will be served insecurely over HTTP.
 
 ### Docker
+
+The generator create a `Dockerfile` that you can use to build a lightweight docker image for your application. Image size `~10MB`
+
+```sh
+make docker
+docker build -t petrasphere/gomicro:latest .
+```
+
 ### Build Scripts
 ### Local Development
+
+Unless you are using sqlite as a database driver, you will need too start up a database to test your application. So assist with this, a `docker-compose.yaml` file is provided and will start a database matching that of your driver. Here are the necessary configuration items that might be relevant as a side effect of using this feature:
+
+##### MySQL
+
+**Host**: `127.0.0.1`  
+**Port**: `3306`  
+**User**: admin  
+**Password**: password  
+**Database Name**: plural of resource noun  
+
+##### PostgreSQL
+
+**Host**: `127.0.0.1`  
+**Port**: `5432`  
+**User**: root  
+**Password**: password  
+**Database Name**: plural of resource noun  
+
 ### Deployment
 
 Since it is recommended that your application be deployed inside of a Docker container, a container orchestration tool is needed in production. Robust configuration for both Kubernetes and Docker Swarm are provided.
 
 ### Error Handling
+
+The server properly handlers all errors so that it does not have any unexpected results. If errors are encountered, they are written to the HTTP response with this body (as per the API documentation):
+
+```json
+{
+  "code": 401,
+  "msg": "unauthorized"
+}
+```
+
 ### Health Checks
+
+It is often useful to have an HTTP route to diagnose application health. For example, this is used in the Kubernetes deployments. The `/health` route will attempt to connect to the database and return a `200` if successful or a `500` if it is not.
