@@ -1,0 +1,7 @@
+instrumentation:
+    root: .
+    extensions:
+        - .js
+        - .go
+    default-excludes: true
+    excludes: ['**/test/**']

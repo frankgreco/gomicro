@@ -16,7 +16,9 @@
     "url": "http://frankgrecojr.com/"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "babel-istanbul cover mocha",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "files": [
     "app"
@@ -28,7 +30,11 @@
   "devDependencies": {
     "mocha": "^3.2.0",
     "yeoman-test": "^1.6.0",
-    "yeoman-assert": "^3.0.0"
+    "yeoman-assert": "^3.0.0",
+    "coveralls": "^2.11.14",
+    "babel-istanbul": "^0.11.0",
+    "eslint": "^3.7.1",
+    "babel-cli": "^6.7.7"
   },
   "dependencies": {
     "left-pad": "^1.1.3",

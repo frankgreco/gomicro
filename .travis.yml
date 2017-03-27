@@ -23,3 +23,7 @@ install:
 
 script:
   - cd ~/build/petrasphere/gomicro && yarn test
+  - cd ~/build/petrasphere/gomicro && yarn run coverage
+
+after_success:
+  - cd ~/build/petrasphere/gomicro && yarn run coveralls
