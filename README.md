@@ -37,21 +37,21 @@ gomicro aims to provide a production grade generator for applications that imple
 
 ## Components
 
-#### HTTP Router
+### HTTP Router
 
 > [github.com/gorilla/mux](https://github.com/gorilla/mux)
 
-#### Command Line Interface
+### Command Line Interface
 
 > [github.com/spf13/cobra](https://github.com/spf13/cobra)
 
-#### Database Driver
+### Database Driver
 
 > [github.com/jinzhu/gorm](https://github.com/jinzhu/gorm)
 
 The generator provides support for multiple backend database drivers configurable by command line flags.
 
-###### MySQL
+##### MySQL
 
 ```sh
 --db-port=DATABASE-PORT or DB_PORT=DATABASE-PORT
@@ -61,14 +61,14 @@ The generator provides support for multiple backend database drivers configurabl
 --db-name=DATABASE-NAME or DB_NAME=DATABASE-NAME  
 ```
 
-###### Sqlite
+##### Sqlite
 
 ```sh
 --db-location=DATABASE-LOCATION or DB_PORT=DATABASE-LOCATION
 --db-name=DATABASE-NAME or DB_NAME=DATABASE-NAME
 ```
 
-###### PostgreSQL
+##### PostgreSQL
 
 ```sh
 --db-port=DATABASE-PORT or DB_PORT=DATABASE-PORT  
@@ -78,41 +78,41 @@ The generator provides support for multiple backend database drivers configurabl
 --db-name=DATABASE-NAME or DB_NAME=DATABASE-NAME  
 ```
 
-###### MongoDB
+##### MongoDB
 
 *coming soon*
 
-#### API Documentation
-#### Unit Testing
-#### HTTP Access Control (CORS)
-#### Logging
+### API Documentation
+### Unit Testing
+### HTTP Access Control (CORS)
+### Logging
 
 > [github.com/sirupsen/logrus](https://github.com/sirupsen/logrus)
 
-#### Authorization
+### Authorization
 
-###### Static Password File
+##### Static Password File
 
 Basic authentication is enabled by passing the `--basic-auth-file=SOMEFILE` option to the server. Currently, the basic auth credentials last indefinitely, and the password(s) cannot be changed without restarting the server.
 
 The basic auth file is a csv file with exactly 2 columns: password, user name. When using basic authentication from an http client, the server expects an `Authorization` header with the value of `Basic BASE64ENCODED(USER:PASSWORD)`
 
-###### Static Token File
+##### Static Token File
 
 The server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line. Currently, tokens last indefinitely, and the token list cannot be changed without restarting the server.
 
 The token file is a csv file with 1 column: token. When using bearer token authentication from an http client, the server expects an `Authorization` header with a value of `Bearer THETOKEN`. The bearer token must be a character sequence that can be put in an HTTP header value using no more than the encoding and quoting facilities of HTTP.
 
-#### SSL
+### SSL
 
 The server can be secured via SSL by setting the `--tls-cert-file=SOMEFILE` and `--tls-private-key-file=SOMEFILE` cli flags. The generator will automatically generate self-signed certificates with a common name of `localhost`. If these cli flags are not set, the server will be served insecurely over HTTP.
 
-#### Docker
-#### Build Scripts
-#### Local Development
-#### Deployment
+### Docker
+### Build Scripts
+### Local Development
+### Deployment
 
 Since it is recommended that your application be deployed inside of a Docker container, a container orchestration tool is needed in production. Robust configuration for both Kubernetes and Docker Swarm are provided.
 
-#### Error Handling
-#### Health Checks
+### Error Handling
+### Health Checks

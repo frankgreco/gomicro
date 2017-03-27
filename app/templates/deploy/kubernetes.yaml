@@ -87,6 +87,16 @@ spec:
       containers:
       - name: gomicro
         image: petrasphere/gomicro:latest
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          periodSeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          periodSeconds: 60
         ports:
         - containerPort: 8080
           protocol: TCP
