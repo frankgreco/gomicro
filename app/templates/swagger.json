@@ -34,6 +34,18 @@
     "http",
     "https"
   ],
+  <%if (auth) { %>
+  "securityDefinitions": {
+    "UserPass": {
+      "type": "basic",
+      "description": "`Basic BASE64ENCODED(USER:PASSWORD)`"
+    },
+    "Token": {
+      "type": "basic",
+      "description": "`Bearer THETOKEN`"
+    }
+  },
+  <% } %>
   "paths": {
     "/<%= nounPluralLower %>": {
       "get": {
@@ -41,6 +53,12 @@
           "<%= nounPluralLower %>"
         ],
         "description": "retrieve `<%= nounPluralUpper %>`",
+        <%if (auth) { %>
+        "security": [
+          "UserPass": [],
+          "Token": []
+        ],
+        <% } %>
         "responses": {
           "200": {
             "description": "successful",
@@ -55,6 +73,14 @@
           "204": {
             "description": "no <%= nounPluralLower %>"
           },
+          <%if (auth) { %>
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          <% } %>
           "500": {
             "description": "internal error",
             "schema": {
@@ -68,6 +94,12 @@
           "<%= nounPluralLower %>"
         ],
         "description": "Insert a <%= nounSingularLower %>",
+        <%if (auth) { %>
+        "security": [
+          "UserPass": [],
+          "Token": []
+        ],
+        <% } %>
         "parameters": [
           {
             "$ref": "#/parameters/<%= nounSingularLower %>"
@@ -86,6 +118,14 @@
               "$ref": "#/definitions/<%= nounSingularLower %>"
             }
           },
+          <%if (auth) { %>
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          <% } %>
           "422": {
             "description": "`<%= nounSingularUpper %>` entry not valid",
             "schema": {
@@ -105,10 +145,24 @@
           "<%= nounPluralLower %>"
         ],
         "description": "delete <%= nounPluralUpper %>",
+        <%if (auth) { %>
+        "security": [
+          "UserPass": [],
+          "Token": []
+        ],
+        <% } %>
         "responses": {
           "204": {
             "description": "successful"
           },
+          <%if (auth) { %>
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          <% } %>
           "500": {
             "description": "internal error",
             "schema": {
@@ -124,6 +178,12 @@
           "<%= nounSingularLower %>"
         ],
         "description": "retrieve `<%= nounSingularUpper %>`",
+        <%if (auth) { %>
+        "security": [
+          "UserPass": [],
+          "Token": []
+        ],
+        <% } %>
         "parameters": [
           {
             "$ref": "#/parameters/id"
@@ -136,6 +196,14 @@
               "$ref": "#/definitions/<%= nounSingularLower %>"
             }
           },
+          <%if (auth) { %>
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          <% } %>
           "404": {
             "description": "`<%= nounSingularUpper %>` not found",
             "schema": {
@@ -155,6 +223,12 @@
           "<%= nounSingularLower %>"
         ],
         "description": "update one `<%= nounSingularUpper %>`",
+        <%if (auth) { %>
+        "security": [
+          "UserPass": [],
+          "Token": []
+        ],
+        <% } %>
         "parameters": [
           {
             "$ref": "#/parameters/id"
@@ -176,6 +250,14 @@
               "$ref": "#/definitions/error"
             }
           },
+          <%if (auth) { %>
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          <% } %>
           "500": {
             "description": "internal error",
             "schema": {
@@ -189,6 +271,12 @@
           "<%= nounSingularLower %>"
         ],
         "description": "delete one `<%= nounSingularUpper %>`",
+        <%if (auth) { %>
+        "security": [
+          "UserPass": [],
+          "Token": []
+        ],
+        <% } %>
         "parameters": [
           {
             "$ref": "#/parameters/id"
@@ -204,6 +292,14 @@
               "$ref": "#/definitions/error"
             }
           },
+          <%if (auth) { %>
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          <% } %>
           "500": {
             "description": "internal error",
             "schema": {

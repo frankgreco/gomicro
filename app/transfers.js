@@ -1,6 +1,9 @@
 exports.get = function(params) {
 
     return [
+        createTransfer("auth/auth.go", params.auth),
+        createTransfer("auth/basic.go", params.auth),
+        createTransfer("auth/token.go", params.auth),
         createTransfer("cmd/root.go"),
         createTransfer("cmd/start.go"),
         createTransfer("cmd/version.go"),
@@ -24,7 +27,9 @@ exports.get = function(params) {
         createTransfer("Makefile"),
         createTransfer("swagger.json"),
         createTransfer(`schemas/${params.db}.sql`, 'schema.sql', ['mysql', 'postgres'].includes(params.db)),
-        createTransfer('docker-compose.yaml', !['sqlite'].includes(params.db))
+        createTransfer('docker-compose.yaml', !['sqlite'].includes(params.db)),
+        createTransfer("basic.csv", params.auth),
+        createTransfer("token.csv", params.auth)
     ]
 
 }

@@ -69,6 +69,14 @@ var http_scheme = {
     store   : true
 }
 
+var http_auth = {
+    type    : 'confirm',
+    name    : 'auth',
+    message : 'http auth',
+    default : true,
+    store   : true
+}
+
 var db_type = {
     type    : 'list',
     name    : 'db',
@@ -93,6 +101,7 @@ exports.get = function() {
         resource_singular,
         resource_plural,
         http_scheme,
+        http_auth,
         db_type
     ]
 
@@ -111,7 +120,8 @@ exports.getValues = function(promptAnswers) {
         nounPluralUpper     : capitalize(promptAnswers.plural),
         nounPluralLower     : promptAnswers.plural,
         db                  : promptAnswers.db,
-        scheme              : promptAnswers.scheme
+        scheme              : promptAnswers.scheme,
+        auth                : promptAnswers.auth
     }
 
 }

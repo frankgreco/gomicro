@@ -61,23 +61,6 @@ module.exports = class extends Generator {
 
     }
 
-    install() {
-
-        let params = prompts.getValues(this.config.get("promptValues"))
-        let basePath = `${process.env.GOPATH}/src/${params.vcs}/${params.repo}/${params.project}`
-
-        this.destinationRoot(basePath)
-
-        // this.log('install was executed')
-        // this.spawnCommand('cd', [
-        //     basePath,
-        //     '&&',
-        //     'make'
-        // ]);
-        this.log(this.contextRoot)
-
-    }
-
     end() {
 
         this.log(messages.end(this.config.get("promptValues")))

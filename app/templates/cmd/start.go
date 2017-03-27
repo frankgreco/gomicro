@@ -2,6 +2,7 @@ package cmd
 
 import (
     "github.com/spf13/cobra"
+    <%if (auth) { %>"github.com/frankgreco/mysql/auth"<% } %>
     "<%= vcs %>/<%= repo %>/<%= project %>/utils"
     "<%= vcs %>/<%= repo %>/<%= project %>/server"
     "<%= vcs %>/<%= repo %>/<%= project %>/database"
@@ -18,6 +19,10 @@ func init() {
     startCmd.Flags().String("db-name", "calls", "database name")
     <%if (db == "sqlite") { %>
     startCmd.Flags().String("db-location", "./data.db", "database location")
+    <% } %>
+    <%if (auth) { %>
+    startCmd.Flags().String("basic-auth-file", "./basic.csv", "basic auth file")
+    startCmd.Flags().String("token-auth-file", "./token.csv", "token auth file")
     <% } %>
 
     RootCmd.AddCommand(startCmd)
@@ -42,6 +47,19 @@ var startCmd = &cobra.Command{
         if err != nil{
             panic(err.Error())
         }
+        <%if (auth) { %>
+        if err != nil{
+            panic(err.Error())
+        }
+        err = auth.InitBasic(basicAuthFile)
+        if err != nil {
+            panic(err.Error())
+        }
+        err = auth.InitTokens(tokenAuthFile)
+        if err != nil {
+            panic(err.Error())
+        }
+        <% } %>
         db := &database.Database{
             <%if (db != "sqlite") { %>
             Host: dbHost,
