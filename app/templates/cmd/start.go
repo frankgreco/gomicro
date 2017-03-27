@@ -24,6 +24,10 @@ func init() {
     startCmd.Flags().String("basic-auth-file", "./basic.csv", "basic auth file")
     startCmd.Flags().String("token-auth-file", "./token.csv", "token auth file")
     <% } %>
+    <%if (scheme == "https") { %>
+    startCmd.Flags().String("tls-cert-file", "../certs/server.crt", "path to tls cert file")
+    startCmd.Flags().String("tls-private-key-file", "../certs/server.crt", "path to tls cert file")
+    <% } %>
 
     RootCmd.AddCommand(startCmd)
 }
@@ -43,6 +47,10 @@ var startCmd = &cobra.Command{
         dbName, err := utils.GetPriorityFlagValue(cmd.Flags(), "db-name")
         <%if (db == "sqlite") { %>
         dbLocation, err := utils.GetPriorityFlagValue(cmd.Flags(), "db-location")
+        <% } %>
+        <%if (scheme == "https") { %>
+        tlsCertFilePath, err := utils.GetPriorityFlagValue(cmd.Flags(), "tls-cert-file")
+        tlsPrivateKeyFilePath, err := utils.GetPriorityFlagValue(cmd.Flags(), "tls-private-key-file")
         <% } %>
         if err != nil{
             panic(err.Error())
@@ -72,6 +80,6 @@ var startCmd = &cobra.Command{
             Location: dbLocation
             <% } %>
         }
-        server.Start(db, appPort)
+        server.Start(db, appPort<%if (scheme == "https") { %>, tlsCertFilePath, tlsPrivateKeyFilePath<% } %>)
     },
 }

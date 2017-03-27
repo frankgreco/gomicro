@@ -9,7 +9,7 @@ import (
     "<%= vcs %>/<%= repo %>/<%= project %>/database"
 )
 
-func Start(db *database.Database, port string) {
+func Start(db *database.Database, port string<%if (scheme == "https") { %>, tlsCertFilePath string, tlsPrivateKeyFilePath string<% } %>) {
     router := route.NewRouter(db)
 
     headersOk := handlers.AllowedHeaders([]string{"Content-Type"})
@@ -17,7 +17,7 @@ func Start(db *database.Database, port string) {
     methodsOk := handlers.AllowedMethods([]string{"GET", "DELETE", "POST", "PUT"})
 
     <%if (scheme == "https") { %>
-    err := http.ListenAndServeTLS(fmt.Sprintf(":%s", "443"), "certs/server.crt", "certs/server.key", handlers.CORS(headersOk, originsOk, methodsOk)(router))
+    err := http.ListenAndServeTLS(fmt.Sprintf(":%s", "443"), tlsCertFilePath, tlsPrivateKeyFilePath, handlers.CORS(headersOk, originsOk, methodsOk)(router))
     if err != nil {
         panic(err.Error())
     }
