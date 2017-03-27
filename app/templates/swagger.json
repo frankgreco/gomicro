@@ -55,8 +55,14 @@
         "description": "retrieve `<%= nounPluralUpper %>`",
         <%if (auth) { %>
         "security": [
-          "UserPass": [],
-          "Token": []
+          {
+            "UserPass": []
+
+          },
+          {
+            "Token": []
+
+          }
         ],
         <% } %>
         "responses": {
@@ -96,8 +102,14 @@
         "description": "Insert a <%= nounSingularLower %>",
         <%if (auth) { %>
         "security": [
-          "UserPass": [],
-          "Token": []
+          {
+            "UserPass": []
+
+          },
+          {
+            "Token": []
+
+          }
         ],
         <% } %>
         "parameters": [
@@ -147,8 +159,14 @@
         "description": "delete <%= nounPluralUpper %>",
         <%if (auth) { %>
         "security": [
-          "UserPass": [],
-          "Token": []
+          {
+            "UserPass": []
+
+          },
+          {
+            "Token": []
+
+          }
         ],
         <% } %>
         "responses": {
@@ -180,8 +198,14 @@
         "description": "retrieve `<%= nounSingularUpper %>`",
         <%if (auth) { %>
         "security": [
-          "UserPass": [],
-          "Token": []
+          {
+            "UserPass": []
+
+          },
+          {
+            "Token": []
+
+          }
         ],
         <% } %>
         "parameters": [
@@ -225,8 +249,14 @@
         "description": "update one `<%= nounSingularUpper %>`",
         <%if (auth) { %>
         "security": [
-          "UserPass": [],
-          "Token": []
+          {
+            "UserPass": []
+
+          },
+          {
+            "Token": []
+
+          }
         ],
         <% } %>
         "parameters": [
@@ -273,8 +303,14 @@
         "description": "delete one `<%= nounSingularUpper %>`",
         <%if (auth) { %>
         "security": [
-          "UserPass": [],
-          "Token": []
+          {
+            "UserPass": []
+
+          },
+          {
+            "Token": []
+
+          }
         ],
         <% } %>
         "parameters": [

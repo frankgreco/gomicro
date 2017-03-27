@@ -81,7 +81,7 @@ var db_type = {
     type    : 'list',
     name    : 'db',
     message : 'database type',
-    choices : [ 'mysql', 'postgres', 'sqlite', 'mongodb'],
+    choices : [ 'mysql', 'postgres', 'sqlite'],
     default : 'mysql',
     store   : true
 }

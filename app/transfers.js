@@ -5,13 +5,14 @@ exports.get = function(params) {
         createTransfer("auth/basic.go", params.auth),
         createTransfer("auth/token.go", params.auth),
         createTransfer("cmd/root.go"),
+        createTransfer("cmd/test.go"),
         createTransfer("cmd/start.go"),
         createTransfer("cmd/version.go"),
         createTransfer("database/driver.go"),
         createTransfer("handler/handler.go"),
         createTransfer("cmd/root.go"),
-        createTransfer("handler/plural.go", `handler/${params.plural}.go`),
-        createTransfer("handler/singular.go", `handler/${params.singular}.go`),
+        createTransfer("handler/plural.go", `handler/${params.nounPluralLower}.go`),
+        createTransfer("handler/singular.go", `handler/${params.nounSingularLower}.go`),
         createTransfer("handler/util.go"),
         createTransfer("models/model.go"),
         createTransfer("route/logger.go"),
@@ -30,18 +31,32 @@ exports.get = function(params) {
         createTransfer('docker-compose.yaml', !['sqlite'].includes(params.db)),
         createTransfer("basic.csv", params.auth),
         createTransfer("token.csv", params.auth),
-        createTransfer("deploy/docker-compose.yaml", params.orchestration == 'docker swarm'),
-        createTransfer("deploy/kubernetes.yaml", params.orchestration == 'kubernetes')
+        createTransfer("deploy/docker-compose.yaml", (params.orchestration == 'docker swarm')),
+        createTransfer("deploy/kubernetes.yaml", (params.orchestration == 'kubernetes'))
     ]
 
 }
 
 function createTransfer(from, to, condition) {
 
-    condition = condition || to
-    to = typeof to == 'boolean' ? undefined : to
+    if(from == 'docker-compose.yaml') {
+        console.log(from)
+        console.log(to)
+        console.log(condition)
+    }
 
-    if(condition && !condition) {
+    if(typeof to == 'boolean') {
+        condition = to;
+        to = undefined;
+    }
+
+    if(from == 'docker-compose.yaml') {
+        console.log(from)
+        console.log(to)
+        console.log(condition)
+    }
+
+    if(typeof condition !== 'undefined' && !condition) {
         return
     }
 

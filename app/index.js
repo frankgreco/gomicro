@@ -52,6 +52,7 @@ module.exports = class extends Generator {
         this.log(messages.write())
 
         transfers.get(params).forEach(file => {
+            if(!file) return;
             self.fs.copyTpl(
                 self.templatePath(file.from),
                 self.destinationPath(`${basePath}/${file.to}`),

@@ -2,7 +2,7 @@ package cmd
 
 import (
     "github.com/spf13/cobra"
-    <%if (auth) { %>"github.com/frankgreco/mysql/auth"<% } %>
+    <%if (auth) { %>"<%= vcs %>/<%= repo %>/<%= project %>/auth"<% } %>
     "<%= vcs %>/<%= repo %>/<%= project %>/utils"
     "<%= vcs %>/<%= repo %>/<%= project %>/server"
     "<%= vcs %>/<%= repo %>/<%= project %>/database"
@@ -46,6 +46,8 @@ var startCmd = &cobra.Command{
         <%if (db == "sqlite") { %>
         dbLocation, err := utils.GetPriorityFlagValue(cmd.Flags(), "db-location")
         <% } %>
+        <%if (auth) { %>basicAuthFile, err := utils.GetPriorityFlagValue(cmd.Flags(), "basic-auth-file")
+        tokenAuthFile, err := utils.GetPriorityFlagValue(cmd.Flags(), "token-auth-file")<% } %>
         tlsCertFilePath, err := utils.GetPriorityFlagValue(cmd.Flags(), "tls-cert-file")
         tlsPrivateKeyFilePath, err := utils.GetPriorityFlagValue(cmd.Flags(), "tls-private-key-file")
         if err != nil{
@@ -73,7 +75,7 @@ var startCmd = &cobra.Command{
             <% } %>
             Name: dbName,
             <%if (db == "sqlite") { %>
-            Location: dbLocation
+            Location: dbLocation,
             <% } %>
         }
         server.Start(db, appPort, tlsCertFilePath, tlsPrivateKeyFilePath)

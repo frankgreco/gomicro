@@ -2,6 +2,7 @@ package handler
 
 import (
     "io"
+    "errors"
     "io/ioutil"
 	"net/http"
     "encoding/json"

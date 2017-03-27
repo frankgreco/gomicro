@@ -3,6 +3,7 @@ package handler
 import (
     "io"
     "fmt"
+    "errors"
     "net/http"
     "io/ioutil"
     "encoding/json"

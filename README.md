@@ -193,7 +193,7 @@ Unless you are using sqlite as a database driver, you will need too start up a d
 
 **Host**: `127.0.0.1`  
 **Port**: `3306`  
-**User**: admin  
+**User**: root  
 **Password**: password  
 **Database Name**: plural of resource noun  
 
