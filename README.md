@@ -37,12 +37,52 @@ gomicro aims to provide a production grade generator for applications that imple
 
 ## Components
 
+#### HTTP Router
+
+> [github.com/gorilla/mux](https://github.com/gorilla/mux)
+
 #### Command Line Interface
+
+> [github.com/spf13/cobra](https://github.com/spf13/cobra)
+
 #### Database Driver
+
+> [github.com/jinzhu/gorm](https://github.com/jinzhu/gorm)
+
+The generator provides support for multiple backend database drivers configurable by command line flags.
+
+###### MySQL
+
+`--db-port=DATABASE-PORT` or `DB_PORT=DATABASE-PORT`
+`--db-host=DATABASE-HOST` or `DB_HOST=DATABASE-HOST`
+`--db-user=DATABASE-USER` or `DB_USER=DATABASE-USER`
+`--db-pass=DATABASE-PASS` or `DB_PASS=DATABASE-PASS`
+`--db-name=DATABASE-NAME` or `DB_NAME=DATABASE-NAME`
+
+###### Sqlite
+
+`--db-location=DATABASE-LOCATION` or `DB_PORT=DATABASE-LOCATION`
+`--db-name=DATABASE-NAME` or `DB_NAME=DATABASE-NAME`
+
+###### PostgreSQL
+
+`--db-port=DATABASE-PORT` or `DB_PORT=DATABASE-PORT`
+`--db-host=DATABASE-HOST` or `DB_HOST=DATABASE-HOST`
+`--db-user=DATABASE-USER` or `DB_USER=DATABASE-USER`
+`--db-pass=DATABASE-PASS` or `DB_PASS=DATABASE-PASS`
+`--db-name=DATABASE-NAME` or `DB_NAME=DATABASE-NAME`
+
+###### MongoDB
+
+*coming soon*
+
 #### API Documentation
 #### Unit Testing
 #### HTTP Access Control (CORS)
 #### Logging
+
+> [github.com/sirupsen/logrus](https://github.com/sirupsen/logrus)
+
 #### Authorization
 
 ###### Static Password File
@@ -58,26 +98,15 @@ The server reads bearer tokens from a file when given the `--token-auth-file=SOM
 The token file is a csv file with 1 column: token. When using bearer token authentication from an http client, the server expects an `Authorization` header with a value of `Bearer THETOKEN`. The bearer token must be a character sequence that can be put in an HTTP header value using no more than the encoding and quoting facilities of HTTP.
 
 #### SSL
+
+The server can be secured via SSL by setting the `--tls-cert-file=SOMEFILE` and `--tls-private-key-file=SOMEFILE` cli flags. The generator will automatically generate self-signed certificates with a common name of `localhost`. If these cli flags are not set, the server will be served insecurely over HTTP.
+
 #### Docker
 #### Build Scripts
 #### Local Development
 #### Deployment
+
+Since it is recommended that your application be deployed inside of a Docker container, a container orchestration tool is needed in production. Robust configuration for both Kubernetes and Docker Swarm are provided.
+
 #### Error Handling
 #### Health Checks
-
-## database
-A user will be prompted to choose between the following database options for their datastore:
-* MySQL
-* Sqlite
-* PostgreSQL
-
-## ssl
-If `https` is selected by the user when prompted, self-signed certificates will automatically be generated and the application will be served over ssl.
-
-## go libraries
-This project aims to use the best and most widely used libraries. Here are the main libraries that gomicro uses:
-
-**command line interface**: [spf13/cobra](https://github.com/spf13/cobra)  
-**http router**: [gorilla/mux](https://github.com/gorilla/mux)  
-**logging**: [sirupsen/logrus](https://github.com/sirupsen/logrus)
-**ORM library**: [jinzhu/gorm](https://github.com/jinzhu/gorm)  
