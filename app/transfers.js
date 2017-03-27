@@ -29,7 +29,9 @@ exports.get = function(params) {
         createTransfer(`schemas/${params.db}.sql`, 'schema.sql', ['mysql', 'postgres'].includes(params.db)),
         createTransfer('docker-compose.yaml', !['sqlite'].includes(params.db)),
         createTransfer("basic.csv", params.auth),
-        createTransfer("token.csv", params.auth)
+        createTransfer("token.csv", params.auth),
+        createTransfer("deploy/docker-compose.yaml", params.orchestration == 'docker swarm'),
+        createTransfer("deploy/kubernetes.yaml", params.orchestration == 'kubernetes')
     ]
 
 }

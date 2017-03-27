@@ -1,4 +1,4 @@
 <%= project %>
 vendor/
-*.crt
+ca-certificates.crt
 .glide/

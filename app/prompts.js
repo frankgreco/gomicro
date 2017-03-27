@@ -86,6 +86,15 @@ var db_type = {
     store   : true
 }
 
+var orchestration_tool = {
+    type    : 'list',
+    name    : 'orchestration',
+    message : 'container orchestration tool',
+    choices : [ 'kubernetes', 'docker swarm'],
+    default : 'kubernetes',
+    store   : true
+}
+
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -102,7 +111,8 @@ exports.get = function() {
         resource_plural,
         http_scheme,
         http_auth,
-        db_type
+        db_type,
+        orchestration_tool
     ]
 
 }
@@ -121,7 +131,8 @@ exports.getValues = function(promptAnswers) {
         nounPluralLower     : promptAnswers.plural,
         db                  : promptAnswers.db,
         scheme              : promptAnswers.scheme,
-        auth                : promptAnswers.auth
+        auth                : promptAnswers.auth,
+        orchestration       : promptAnswers.orchestration
     }
 
 }

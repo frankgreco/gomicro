@@ -1,0 +1,127 @@
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: gomicro
+  namespace: default
+data:
+  server.crt: |-
+        -----BEGIN CERTIFICATE-----
+    MIIC8DCCAdigAwIBAgIJHVIcydrruIuPMA0GCSqGSIb3DQEBCwUAMBQxEjAQBgNV
+    BAMTCWxvY2FsaG9zdDAeFw0xNzAzMjUxOTAzMTBaFw0xODAzMjUxOTAzMTBaMBQx
+    EjAQBgNVBAMTCWxvY2FsaG9zdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+    ggEBAM9HUL5SfOvnkPPf0RSi+r3y4/AtQVyP/N1ZGjy2uPLljr5ppW+Riqt8WCYJ
+    3vPfiQ+4qzgcwnJ8dwTFB8h7yVUt1hgGUElJDDoGhIAEbPB2V9SbkL45IjSUdwlp
+    BDf1xsHtajzTdOuRMK2u3Jls7QB5AEI3Law36hUzeAdkbcUTrCYRR3FKFZaNr4+X
+    L20PI9Gy6m1l/r9dXYEjrQw4XbJLfEi91mg+njqB5cVRly7CuP/SY3YXZJdxZJ5c
+    2coqz0Vpv+5M9cNDclDewyNr8aq35mq836s+OoqFxA1iKFCjrAh2Ie5q7Nw7Gd4N
+    Wns8K9LpDFHmyTBrdq32Xd0bxQ0CAwEAAaNFMEMwDAYDVR0TBAUwAwEB/zALBgNV
+    HQ8EBAMCAvQwJgYDVR0RBB8wHYYbaHR0cDovL2V4YW1wbGUub3JnL3dlYmlkI21l
+    MA0GCSqGSIb3DQEBCwUAA4IBAQBUhQX9OmLBoh53YzoYqhBb9Y9qq0vUg5NU5PNG
+    dsAmtUMAhgb8oEuA9PdVwAp23yBg7t+ldIc76aBbFjjovWZxnkDIBrv0l5f6/cMf
+    7D1fyRbsuAEY2B266Ph0a8ulYpLcbDVTlWjDlrjq1OAqONpjiAnq07LYtzABDrFE
+    C0cIdZdUA/dIaYn+/oB0nB5nntwCSB2YbeNbIoyASY8X2RT83SDpZQXuCnCZ8u92
+    GMC4sD6/UvUoQQm8vfRrkh7Jv7opXN+rDBbQr1lrZXeOGPi/OC/snbCqvt6+CBW3
+    n07AebUQ5lzbjP9PrQh9x95KpVoFMsPscLn0e9duDSsCSd6R
+    -----END CERTIFICATE-----
+  server.key: |-
+        -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEAz0dQvlJ86+eQ89/RFKL6vfLj8C1BXI/83VkaPLa48uWOvmml
+    b5GKq3xYJgne89+JD7irOBzCcnx3BMUHyHvJVS3WGAZQSUkMOgaEgARs8HZX1JuQ
+    vjkiNJR3CWkEN/XGwe1qPNN065Ewra7cmWztAHkAQjctrDfqFTN4B2RtxROsJhFH
+    cUoVlo2vj5cvbQ8j0bLqbWX+v11dgSOtDDhdskt8SL3WaD6eOoHlxVGXLsK4/9Jj
+    dhdkl3FknlzZyirPRWm/7kz1w0NyUN7DI2vxqrfmarzfqz46ioXEDWIoUKOsCHYh
+    7mrs3DsZ3g1aezwr0ukMUebJMGt2rfZd3RvFDQIDAQABAoIBAGi4KOzek8pDJZJw
+    Ixt/85n/mnT/CCSRgjj6CS1fSzU8EM/WZARnzV0x5v7gwckHyCEvNSGWNg7NHvxD
+    5ti84UytaZqdpfZAd3LhVBOxKLCbuWfqaEgSaVuTHkicy8rR2uai4ad1VX6lzagR
+    zdWdmGdCuoS5h9OYNCUd6agibuq/Spg9Ukt9IMT8EQUgSuB1F6U2O3eW58MyTJKS
+    mUIns8/RABg0F6HDsoM39y6qvWKRHEvc8FQI+Z8qiWZ0+f0gkVxJw2bOHlQG7Bkx
+    8K3zB0kZcpsnSk8g1wTajZHo3xSAXVWIRGcTPXF7Qlp2UHNDD0u7IwYilv792nU/
+    wM8v9SkCgYEA8WJ1NurIoxpz85NuQq4RPTRXTtSUwT7AE9PMkhBxh+g4oAK8NGNE
+    d0T6+AXwFvY/Eu2jVxva3Qlehqf9jl05zpH5ZSLcMvS+ec6NyQUMSoUaz6HhBoyZ
+    TDA+lBBZCdc3r4XuO+neR9b8MXujJw8CWyCgsIYTesYKXr5l5AuX6gcCgYEA29Qz
+    5ccaAleB1dS3r02oxdxDxewWAwyXKn7o0f1M182nqtuhe0DXiuC5ja7J/PCqoDPq
+    c0FYbbLgOCdniIV+SjlIfexxinTKNz52MurV8KEF410MHTvQsSJ1MDt1cwyzlYnd
+    Gn2pwjHaUXotYB2ot0SkcEKat1rU74VX3Pa640sCgYEAthMIS0ZJ1Q2tDLvWXaGj
+    C0Gh4apkEmfcxpfqJPsWR+eYXsnxYKrICBcWH2OLOCbCaOqrXJd8PWJF1Nh+X5Ze
+    djyRnAHxitYlnwd413phTQydrqRyclg3gcqaSWETaGLYdCNYEgVUT2gQjtqttFaT
+    9lzkGILpyp/7Tn/bp2o/Sp0CgYEA2nT/PhGmnz0nIcDK6cNbPYWvNDlxhoY0k16b
+    MFNw0eTmAr1QtJOzn6fDvjE9OchRR/NPwknl/t4MRMGj+d/vqQNULw+Rpe56JnxE
+    KkWFZiQfHduR9ltDAUUlAFGWXkb5EFp5B6Jp2TqBowavoRzYVYg5gfYumpgBlCYH
+    MudewhECgYB709FwcNEp2zdHuFLshF9TpHbokcpLaDRvuy7MKEF2mCC26jaUoHPC
+    Bk2y1Tn441HvBqqIgmkxbX69n74V3BMNgF+vZgOQfXcZQNZJ2jyE2N/ZcU14ZKtT
+    1fehU5wg6MrM0ZwpazPdfWub3jihJzswFbXU/7QuSouKtv6eDeUWWQ==
+    -----END RSA PRIVATE KEY-----
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gomicro
+type: Opaque
+data:
+  basic: dXNlcixwYXNz
+  token: YWJjMTIz
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: gomicro
+  name: gomicro
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gomicro
+  template:
+    metadata:
+      labels:
+        app: gomicro
+    spec:
+      containers:
+      - name: gomicro
+        image: petrasphere/gomicro:latest
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+        - name: pki
+          mountPath: /pki
+          readOnly: true
+        - name: auth
+          mountPath: /auth
+          readOnly: true
+      volumes:
+      - name: pki
+        configMap:
+          name: gomicro
+      - name: auth
+        secret:
+          secretName: gomicro
+          items:
+          - key: basic
+            path: basic.csv
+          - key: token
+            path: token.csv
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: gomicro
+  name: gomicro
+  namespace: default
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+  selector:
+    app: gomicro
