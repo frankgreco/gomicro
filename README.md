@@ -51,7 +51,7 @@ gomicro aims to provide a production grade generator for applications that imple
 
 The generator provides support for multiple backend database drivers configurable by command line flags.
 
-##### MySQL
+#### MySQL
 
 ```sh
 --db-port=DATABASE-PORT or DB_PORT=DATABASE-PORT
@@ -61,14 +61,14 @@ The generator provides support for multiple backend database drivers configurabl
 --db-name=DATABASE-NAME or DB_NAME=DATABASE-NAME  
 ```
 
-##### Sqlite
+#### Sqlite
 
 ```sh
 --db-location=DATABASE-LOCATION or DB_PORT=DATABASE-LOCATION
 --db-name=DATABASE-NAME or DB_NAME=DATABASE-NAME
 ```
 
-##### PostgreSQL
+#### PostgreSQL
 
 ```sh
 --db-port=DATABASE-PORT or DB_PORT=DATABASE-PORT  
@@ -89,15 +89,21 @@ The generator provides support for multiple backend database drivers configurabl
 
 > [github.com/sirupsen/logrus](https://github.com/sirupsen/logrus)
 
+Robust logging is streamed to stdout with the following json format:
+
+```js
+{"duration":0,"level":"info","method":"GET","msg":"http server started","name":"RetrievePhone","time":"2017-03-26T22:55:25-05:00","uri":"/phone/6"}
+```
+
 ### Authorization
 
-##### Static Password File
+#### Static Password File
 
 Basic authentication is enabled by passing the `--basic-auth-file=SOMEFILE` option to the server. Currently, the basic auth credentials last indefinitely, and the password(s) cannot be changed without restarting the server.
 
 The basic auth file is a csv file with exactly 2 columns: password, user name. When using basic authentication from an http client, the server expects an `Authorization` header with the value of `Basic BASE64ENCODED(USER:PASSWORD)`
 
-##### Static Token File
+#### Static Token File
 
 The server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line. Currently, tokens last indefinitely, and the token list cannot be changed without restarting the server.
 
@@ -117,11 +123,30 @@ docker build -t petrasphere/gomicro:latest .
 ```
 
 ### Build Scripts
+
+Various aspects of your application are build via the `make` utility. Here are the provided scripts:
+
+#### `make`
+
+Install dependencies and build binary
+
+#### `make install`
+
+Install dependencies
+
+#### `make local-dev`
+
+Install dependencies, build binary, and start backend database
+
+#### `make clean`
+
+Remove binary
+
 ### Local Development
 
 Unless you are using sqlite as a database driver, you will need too start up a database to test your application. So assist with this, a `docker-compose.yaml` file is provided and will start a database matching that of your driver. Here are the necessary configuration items that might be relevant as a side effect of using this feature:
 
-##### MySQL
+#### MySQL
 
 **Host**: `127.0.0.1`  
 **Port**: `3306`  
@@ -129,7 +154,7 @@ Unless you are using sqlite as a database driver, you will need too start up a d
 **Password**: password  
 **Database Name**: plural of resource noun  
 
-##### PostgreSQL
+#### PostgreSQL
 
 **Host**: `127.0.0.1`  
 **Port**: `5432`  
