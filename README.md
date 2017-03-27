@@ -13,9 +13,15 @@ $ npm install -g generator-gomicro
 $ yo gomicro
 ```
 
+## Overview
+
+gomicro aims to provide a production grade generator for applications that implement a restful api through create/retrieve/update/delete (CRUD) operations. Below are the aspects that gomicro implements to make your application production ready:
+
 ## Table of Contents
+* [Quick Start](#quick-start)
 * [Overview](#overview)
 * [Components](#components)
+  * [HTTP Router](#http-router)
   * [Command Line Interface](#command-line-interface)
   * [Database Driver](#database-driver)
   * [API Documentation](#api-documentation)
@@ -31,19 +37,35 @@ $ yo gomicro
   * [Error Handling](#error-handling)
   * [Health Checks](#health-checks)
 
-## Overview
-
-gomicro aims to provide a production grade generator for applications that implement a restful api through create/retrieve/update/delete (CRUD) operations. Here are the aspects that gomicro implements to make your application production ready:
-
 ## Components
 
 ### HTTP Router
 
 > [github.com/gorilla/mux](https://github.com/gorilla/mux)
 
+Start the server with `./gomicro start` (replace "gomicro" with the name of your binary). The server implements CRUD operations on your resource. Reference the api documentation for full api usage. Drag and Drop the generated `swagger.json` onto the [swagger editor](http://editor.swagger.io/#!/)
+
 ### Command Line Interface
 
 > [github.com/spf13/cobra](https://github.com/spf13/cobra)
+
+A robust command line tool is included in your project. Available cli flags can are documented throughout this README. However, you can always find out more via the command line tool itself (replace "gomicro" with the name of your binary).
+
+```sh
+$ ./gomicro --help
+gomicro is a RESTful microservice that performs CRUD operations on the Phone resources
+
+Usage:
+  gomicro [command]
+
+Available Commands:
+  help        Help about any command
+  start       start a new server
+  test        run all unit tests
+  version     print the version information
+
+Use "gomicro [command] --help" for more information about a command.
+```
 
 ### Database Driver
 
@@ -83,8 +105,29 @@ The generator provides support for multiple backend database drivers configurabl
 *coming soon*
 
 ### API Documentation
+
+[Swagger](http://swagger.io/specification/) is the industry standard for documenting APIs. Because of this, you will find complete API documentation for your application in your project. Note that you will only have to modify the data model to match yours.
+
 ### Unit Testing
+
+*tack this backlog item [here](https://github.com/petrasphere/gomicro/projects/1#card-2228159)*
+
+No project is complete with comprehensive unit testing. The goal is to have over 90% code coverage. You can run these unit tests by executing the following command (replace "gomicro" with the name of your binary):
+
+```sh
+./gomicro test
+```
+
 ### HTTP Access Control (CORS)
+
+[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) give you the ability to secure cross-origin HTTP requests. For example, the following code allows the `Content-Type` header, allows requests from all origin domains, and only allows four HTTP methods:
+
+```go
+headersOk := handlers.AllowedHeaders([]string{"Content-Type"})
+originsOk := handlers.AllowedOrigins([]string{"*"})
+methodsOk := handlers.AllowedMethods([]string{"GET", "DELETE", "POST", "PUT"})
+```
+
 ### Logging
 
 > [github.com/sirupsen/logrus](https://github.com/sirupsen/logrus)
